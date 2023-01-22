@@ -57,8 +57,8 @@ export const BuilderForm = ({ successCreate }: IProps) => {
     validateInputOnBlur: true,
     initialValues: {
       // avatar: "",
-      name: "",
-      description: "",
+      name: "name",
+      description: "description",
       linkedin: "https://linkedin.com/",
       github: "https://github.com/",
       youtube: "https://youtube.com/",
@@ -100,7 +100,8 @@ export const BuilderForm = ({ successCreate }: IProps) => {
     return fields.map((field, key) => (
       <Group align={"center"} key={key}>
         <TextInput
-          label={field}
+          defaultValue={field}
+          label={field} 
           placeholder={field}
           {...form.getInputProps(field)}
           rightSection={

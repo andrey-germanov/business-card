@@ -55,12 +55,13 @@ export const BuilderColor = () => {
           "#fab005",
           "#fd7e14",
         ]}
+        defaultValue="#4e68de"
       />
       <Text>Background color buttons</Text>
       <ColorPicker
         format="hex"
         onChange={handleChangeButtonColor}
-        defaultValue="#e36464"
+        defaultValue="#6486e3"
         swatches={[
           "#25262b",
           "#868e96",
@@ -82,7 +83,7 @@ export const BuilderColor = () => {
       <ColorPicker
         format="hex"
         onChange={handleChangeTextColor}
-        defaultValue="black"
+        defaultValue="#fff"
         swatches={[
           "#25262b",
           "#868e96",

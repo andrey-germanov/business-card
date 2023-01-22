@@ -26,15 +26,15 @@ const createdAt = {
 }
 const data = {
   linkedin: '',
-  description: '',
+  description: 'description',
   youtube: '',
-  name: '',
+  name: 'name',
   github: '',
 }
 const style = {
-  backgroundColor: '',
-  textColor: '',
-  buttonColor: '',
+  backgroundColor: '#4e68de',
+  textColor: '#fff',
+  buttonColor: '#6486e3',
 }
 const initialState: ICardResponse = {
   nickname: '',
