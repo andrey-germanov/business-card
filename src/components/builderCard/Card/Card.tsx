@@ -127,9 +127,9 @@ export const PreviewCard = () => {
                     color: card.style.textColor,
                   }}
                 >
-                  <Link style={{ color: "#fff" }} to={card.data.linkedin}>
+                  <a style={{ color: "#fff" }} href={card.data.linkedin} target={'_blank'} rel="noreferrer">
                     linkedin
-                  </Link>
+                  </a>
                 </Button>
               )}
               {card.data.github && (
@@ -140,9 +140,9 @@ export const PreviewCard = () => {
                     color: card.style.textColor,
                   }}
                 >
-                  <Link style={{ color: "#fff" }} to={card.data.github}>
+                  <a style={{ color: "#fff" }} href={card.data.github} target={'_blank'} rel="noreferrer">
                     github
-                  </Link>
+                  </a>
                 </Button>
               )}
               {card.data.youtube && (
@@ -153,9 +153,9 @@ export const PreviewCard = () => {
                     color: card.style.textColor,
                   }}
                 >
-                  <Link style={{ color: "#fff" }} to={card.data.youtube}>
+                  <a style={{ color: "#fff" }} href={card.data.youtube} target={'_blank'} rel="noreferrer">
                     youtube
-                  </Link>
+                  </a>
                 </Button>
               )}
             </Stack>
