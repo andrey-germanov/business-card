@@ -38,7 +38,7 @@ export const Register = () => {
   };
 
   const validateNickname = value?.docs.filter(
-    (doc) => doc.data().data.nickname === nickname
+    (doc) => doc.data().nickname === nickname
   );
 
   const disableSignUpButton = nickname.length < 6 || !!validateNickname?.length;
