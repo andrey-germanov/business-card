@@ -40,7 +40,7 @@ export const BuilderCard = () => {
     <WrapperApp>
       <h1>BuilderCard</h1>
       <a
-        href={`${"http://localhost:3000/" + card.nickname}`}
+        href={`${"https://business-card-lime.vercel.app/" + card.nickname}`}
         target={"_blank"}
         rel="noreferrer"
       >
