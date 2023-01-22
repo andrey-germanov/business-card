@@ -1,15 +1,31 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Register } from "../components/auth/Register";
+import { Flex, Stack, Text, Title, Group, Button } from "@mantine/core";
 
 export const RegistrationPage = () => {
   return (
-    <div>
-      <h1>RegistrationPage</h1>
-      <Register />
-      <p>
-        Already have an account <Link to={"/login"}>sign in</Link>
-      </p>
-    </div>
+    <Flex direction={"column"} justify={"center"} align={"center"}>
+      <Stack
+        style={{
+          maxWidth: "525px",
+          width: "100%",
+          backgroundColor: "#fff",
+          margin: "32px",
+          padding: "32px",
+          boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+        }}
+        spacing={32}
+      >
+        <Title align="center" color={'#000000a8'} order={1}>Registration</Title>
+        <Register />
+        <Group spacing={10}>
+          Already have an account
+          <Button style={{ padding: 0 }} variant="light">
+            <Link to={"/login"}>sign in</Link>
+          </Button>
+        </Group>
+      </Stack>
+    </Flex>
   );
 };

@@ -1,6 +1,6 @@
 import { ColorPicker, Stack, Text } from "@mantine/core";
 import { useSelector } from "react-redux";
-import { cardSelector, setCard } from "../store/slices/cardSlices";
+import { cardSelector, setCard } from "../../store/slices/cardSlices";
 import { useDispatch } from "react-redux";
 
 export const BuilderColor = () => {
@@ -34,7 +34,7 @@ export const BuilderColor = () => {
     dispatch(setCard(data));
   };
   return (
-    <Stack>
+    <Stack style={{ alignSelf: 'start'}}>
       <Text>Background color own app</Text>
       <ColorPicker
         format="hex"
@@ -57,7 +57,7 @@ export const BuilderColor = () => {
         ]}
         defaultValue="#4e68de"
       />
-      <Text>Background color buttons</Text>
+      {/* <Text>Background color buttons</Text>
       <ColorPicker
         format="hex"
         onChange={handleChangeButtonColor}
@@ -100,7 +100,7 @@ export const BuilderColor = () => {
           "#fab005",
           "#fd7e14",
         ]}
-      />
+      /> */}
     </Stack>
   );
 };

@@ -28,7 +28,7 @@ export const Register = () => {
         addDoc(collection(db, `cards/`), {
           clientId: res.user.uid,
           nickname,
-          createdAt: serverTimestamp()
+          createdAt: serverTimestamp(),
         });
         navigate("/");
       })
@@ -41,15 +41,18 @@ export const Register = () => {
     (doc) => doc.data().nickname === nickname
   );
 
+  const validateInput = (value: string) =>
+    value.replace(/^[А-Яа-яёЁ]+(?:[-'\s][А-Яа-яёЁ]+)*$/, "").trim();
   const disableSignUpButton = nickname.length < 6 || !!validateNickname?.length;
 
   return (
-    <Stack spacing={0}>
+    <Stack spacing={16}>
       <Group>
         <Input
           type="text"
           value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
+          placeholder="NickName"
+          onChange={(e) => setNickname(validateInput(e.target.value))}
         />
         {!!validateNickname?.length && (
           <Text>this nickname already exists</Text>

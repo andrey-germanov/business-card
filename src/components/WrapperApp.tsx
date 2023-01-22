@@ -3,7 +3,7 @@ import { Header, Text, Group, Button, Badge, Flex, Stack } from "@mantine/core";
 import { useAuth } from "../hooks/useAuth";
 import { signOut, getAuth } from "firebase/auth";
 import { useNavigate } from "react-router";
-import { useAuthState, useSignOut } from 'react-firebase-hooks/auth';
+import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 
 interface IWrapperApp {
   children: React.ReactNode;
@@ -16,7 +16,7 @@ export function WrapperApp({ children }: IWrapperApp) {
   const [signOut, loadingSignOut, errorSignOut] = useSignOut(auth);
 
   const signControl = () => {
-    if ( loading ) return <>loading</>
+    if (loading) return <>loading</>;
     if (user) {
       return (
         <>
@@ -32,16 +32,29 @@ export function WrapperApp({ children }: IWrapperApp) {
   };
   return (
     <Stack style={{ height: "100%" }} spacing={0}>
-      <Header height={70} p="md">
+      <Header
+        style={{
+          boxShadow: "rgba(0, 0, 0, 0.15) 0px 3px 15px",
+        }}
+        height={70}
+        p="md"
+      >
         <Flex justify={"space-between"} align={"center"}>
-          <Link to={"/"}>Logo</Link>
+          <Link to={"/"}>Home</Link>
           <Text>Smart Links</Text>
           <Group>{signControl()}</Group>
         </Flex>
       </Header>
-      <div style={{padding: '20px'}}>
+      <Flex
+      justify={'center'}
+      align={'center'}
+        style={{
+          padding: '20px',
+          width:"100%"
+        }}
+      >
         {children}
-      </div>
+      </Flex>
     </Stack>
   );
 }

@@ -11,11 +11,11 @@ import {
   where,
   serverTimestamp,
 } from "firebase/firestore";
-import { Context } from "..";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { ICard, cardSelector, setCard } from "../store/slices/cardSlices";
 import { useDispatch, useSelector } from "react-redux";
+import { Context } from "../..";
+import { ICard, cardSelector, setCard } from "../../store/slices/cardSlices";
 
 const fields = [
   "name",
@@ -29,6 +29,7 @@ const fields = [
 interface IProps {
   successCreate: boolean;
 }
+
 
 export const BuilderForm = ({ successCreate }: IProps) => {
   const { db } = useContext(Context);
@@ -101,7 +102,7 @@ export const BuilderForm = ({ successCreate }: IProps) => {
       <Group align={"center"} key={key}>
         <TextInput
           defaultValue={field}
-          label={field} 
+          label={field}
           placeholder={field}
           {...form.getInputProps(field)}
           rightSection={

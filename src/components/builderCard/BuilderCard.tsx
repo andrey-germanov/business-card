@@ -1,15 +1,15 @@
-import { Flex } from "@mantine/core";
+import { Flex, Title } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
 import { Navigate } from "react-router";
-import { PreviewCard } from "./PreviewCard";
-import { WrapperApp } from "./WrapperApp";
+import { PreviewCard } from "./Card/Card";
+import { WrapperApp } from "../WrapperApp";
 import { BuilderColor } from "./BuilderColor";
 import { BuilderForm } from "./BuilderForm";
-import { setCard, cardSelector } from "../store/slices/cardSlices";
+import { setCard, cardSelector } from "../../store/slices/cardSlices";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { Context } from "../index";
+import { Context } from "../../index";
 import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -33,24 +33,31 @@ export const BuilderCard = () => {
   useEffect(() => {
     setSuccessCreate(false);
     fetchCard();
-  }, [loading]);
+  }, [loading, card.nickname]);
 
   if (!user && !loading) return <Navigate to={"/login"} replace />;
+
   return (
     <WrapperApp>
-      <h1>BuilderCard</h1>
-      <a
-        href={`${"https://business-card-lime.vercel.app/" + card.nickname}`}
-        target={"_blank"}
-        rel="noreferrer"
+      <div
+        style={{ width: "90%", boxShadow: "rgba(0, 0, 0, 0.15) 0px 3px 15px", borderRadius: '30px', padding: '50px' }}
       >
-        link to your profile
-      </a>
-      <Flex justify={"space-between"} align={"center"} p={20}>
-        <BuilderForm successCreate={successCreate} />
-        <BuilderColor />
-        <PreviewCard />
-      </Flex>
+        <Title order={1}>BuilderCard</Title>
+        {card.nickname && (
+          <a
+            href={`${"https://business-card-lime.vercel.app/" + card.nickname}`}
+            target={"_blank"}
+            rel="noreferrer"
+          >
+            link to your profile
+          </a>
+        )}
+        <Flex justify={"space-between"} align={"center"}>
+          <BuilderForm successCreate={successCreate} />
+          <BuilderColor />
+          <PreviewCard />
+        </Flex>
+      </div>
     </WrapperApp>
   );
 };
