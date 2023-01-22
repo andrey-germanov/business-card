@@ -1,4 +1,4 @@
-import { Stack, Button, Group, TextInput } from "@mantine/core";
+import { Stack, Button, Group, TextInput, FileInput } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { z } from "zod";
 import { useContext, useEffect } from "react";
@@ -16,20 +16,13 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { Context } from "../..";
 import { ICard, cardSelector, setCard } from "../../store/slices/cardSlices";
+import { UploadAvatar } from "./UploadAvatar";
 
-const fields = [
-  "name",
-  "description",
-  // "avatar",
-  "github",
-  "linkedin",
-  "youtube",
-];
+const fields = ["name", "description", "github", "linkedin", "youtube"];
 
 interface IProps {
   successCreate: boolean;
 }
-
 
 export const BuilderForm = ({ successCreate }: IProps) => {
   const { db } = useContext(Context);
@@ -57,7 +50,6 @@ export const BuilderForm = ({ successCreate }: IProps) => {
     ),
     validateInputOnBlur: true,
     initialValues: {
-      // avatar: "",
       name: "name",
       description: "description",
       linkedin: "https://linkedin.com/",
@@ -90,6 +82,7 @@ export const BuilderForm = ({ successCreate }: IProps) => {
 
       await updateDoc(doc(db, `cards/${querySnapshot.docs[0].id}/`), {
         data,
+        avatar: card.avatar,
         style: { ...card.style },
         updatedAt: serverTimestamp(),
       });
@@ -113,14 +106,17 @@ export const BuilderForm = ({ successCreate }: IProps) => {
               x
             </div>
           }
+          style={{
+            width: "100%",
+          }}
         />
       </Group>
     ));
   };
-
   return (
     <form onSubmit={form.onSubmit(handleFormSubmit)}>
       <Stack spacing={24}>
+        <UploadAvatar />
         {renderFields(fields)}
         <Button disabled={successCreate} type={"submit"}>
           Publish

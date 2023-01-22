@@ -7,6 +7,7 @@ import { useContext, useState, useEffect } from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { collection } from "firebase/firestore";
 import { ICardResponse } from "../../../types/types";
+import { Link } from "react-router-dom";
 
 export const PreviewCard = () => {
   const [card, setCard] = useState<ICardResponse | null>(null);
@@ -35,7 +36,7 @@ export const PreviewCard = () => {
 
   if (!card) return <>loading</>;
   if (!card.data) return <>page not found</>;
-
+  console.log(card);
   return (
     <Stack
       style={{
@@ -87,7 +88,7 @@ export const PreviewCard = () => {
             width: "calc(100% - 30px)",
             height: "60%",
             borderBottomLeftRadius: "20px",
-            borderBottomRightRadius: "20px"
+            borderBottomRightRadius: "20px",
           }}
         />
 
@@ -110,50 +111,53 @@ export const PreviewCard = () => {
           >
             <img
               style={{ width: "100px", borderRadius: "50%" }}
-              src="https://media.licdn.com/dms/image/D4E35AQEobt_RK4dfZw/profile-framedphoto-shrink_100_100/0/1668525720508?e=1674993600&v=beta&t=R9GEeB_qCzy24YbHZsh37TK7qIqPA-osXDCDWUKRwFY"
+              src={card.avatar}
               alt=""
             />
             {card.data.name && <Title order={2}>{card.data.name}</Title>}
             {card.data.description && (
               <Title order={4}>{card.data.description}</Title>
             )}
-            <Stack>
-            {card.data.linkedin && (
-              <Button
-                style={{
-                  padding: "0 50px",
-                  backgroundColor: `${card.style.backgroundColor}`,
-                  color: card.style.textColor,
-                }}
-                onClick={() => navigate(`${card.data.linkedin}`)}
-              >
-                linkedin
-              </Button>
-            )}
-            {card.data.github && (
-              <Button
-                style={{
-                  padding: "0 50px",
-                  backgroundColor: `${card.style.backgroundColor}`,
-                  color: card.style.textColor,
-                }}
-                onClick={() => navigate(`${card.data.github}`)}
-              >
-                github
-              </Button>
-            )}
-            {card.data.youtube && (
-              <Button
-                style={{
-                  padding: "0 50px",
-                  backgroundColor: card.style.backgroundColor,
-                  color: card.style.textColor,
-                }}
-                onClick={() => navigate(`${card.data.youtube}`)}
-              >
-                youtube
-              </Button>
-            )}
+            <Stack style={{ width: '80%' }}>
+              {card.data.linkedin && (
+                <Button
+                  style={{
+                    padding: "0",
+                    backgroundColor: `${card.style.backgroundColor}`,
+                    color: card.style.textColor,
+                  }}
+                >
+                  <Link style={{ color: "#fff" }} to={card.data.linkedin}>
+                    linkedin
+                  </Link>
+                </Button>
+              )}
+              {card.data.github && (
+                <Button
+                  style={{
+                    padding: "0",
+                    backgroundColor: `${card.style.backgroundColor}`,
+                    color: card.style.textColor,
+                  }}
+                >
+                  <Link style={{ color: "#fff" }} to={card.data.github}>
+                    github
+                  </Link>
+                </Button>
+              )}
+              {card.data.youtube && (
+                <Button
+                  style={{
+                    padding: "0",
+                    backgroundColor: card.style.backgroundColor,
+                    color: card.style.textColor,
+                  }}
+                >
+                  <Link style={{ color: "#fff" }} to={card.data.youtube}>
+                    youtube
+                  </Link>
+                </Button>
+              )}
             </Stack>
           </Stack>
         )}
@@ -168,7 +172,7 @@ export const PreviewCard = () => {
             color: "#fff",
             position: "absolute",
             bottom: 15,
-            fontSize: 13
+            fontSize: 13,
           }}
           justify={"center"}
           align={"center"}

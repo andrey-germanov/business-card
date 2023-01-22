@@ -23,6 +23,7 @@ export interface Style {
 }
 
 export interface ICardResponse {
+  avatar: string;
   nickname: string;
   updatedAt: UpdatedAt;
   data: Data;

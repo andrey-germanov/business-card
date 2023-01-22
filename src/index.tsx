@@ -8,6 +8,7 @@ import { createContext } from "react";
 import { firebaseConfig } from "./firebaseConfig";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from 'firebase/storage';
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -20,6 +21,8 @@ export const Context = createContext<any | null>(null);
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
+
+export const storage = getStorage(app);
 
 root.render(
   <Provider store={store}>

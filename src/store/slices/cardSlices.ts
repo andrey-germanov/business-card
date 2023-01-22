@@ -25,10 +25,10 @@ const createdAt = {
   nanoseconds: 0
 }
 const data = {
-  linkedin: '',
-  description: 'description',
-  youtube: '',
   name: 'name',
+  description: 'description',
+  linkedin: '',
+  youtube: '',
   github: '',
 }
 const style = {
@@ -37,6 +37,7 @@ const style = {
   buttonColor: '#6486e3',
 }
 const initialState: ICardResponse = {
+  avatar: '',
   nickname: '',
   updatedAt: updatedAt,
   data: data,
@@ -51,9 +52,9 @@ const cardSlice = createSlice({
   reducers: {
     setCard(state, action) {
       state.nickname = action.payload.nickname;
+      state.avatar = action.payload.avatar;
       state.data.name = action.payload.data.name;
       state.data.description = action.payload.data.description;
-      // state.data.avatar = action.payload.avatar;
       state.data.linkedin = action.payload.data.linkedin;
       state.data.github = action.payload.data.github;
       state.data.youtube = action.payload.data.youtube;
