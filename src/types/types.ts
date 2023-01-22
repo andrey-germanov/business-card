@@ -1,20 +1,32 @@
-export type Card = {
-  nickname: string;
-  name: string;
-  description: string;
-  avatar?: string;
-  linkedin?: string;
-  github?: string;
-  youtube?: string;
-};
+export interface UpdatedAt {
+  seconds: number;
+  nanoseconds: number;
+}
 
-export type Style = {
+export interface Data {
+  linkedin: string;
+  description: string;
+  youtube: string;
+  name: string;
+  github: string;
+}
+
+export interface CreatedAt {
+  seconds: number;
+  nanoseconds: number;
+}
+
+export interface Style {
   backgroundColor: string;
-  buttonColor: string;
   textColor: string;
-};
-export interface IResponseCards {
+  buttonColor: string;
+}
+
+export interface ICardResponse {
+  nickname: string;
+  updatedAt: UpdatedAt;
+  data: Data;
   clientId: string;
-  data: Card;
+  createdAt: CreatedAt;
   style: Style;
 }

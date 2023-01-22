@@ -1,9 +1,9 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
-import userReducer from './slices/userSlices';
+import cardReducer from './slices/cardSlices';
 
 const rootReducer = combineReducers({
-  user: userReducer
+  card: cardReducer
 });
 
 export const setupStore = () => {

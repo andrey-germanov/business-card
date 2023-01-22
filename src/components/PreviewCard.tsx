@@ -1,45 +1,46 @@
-import { Button, Flex, Stack } from "@mantine/core";
-import React, { useEffect, useState } from "react";
+import { Button, Flex, Stack, Loader } from "@mantine/core";
 import { useNavigate, useParams } from "react-router";
-import { IResponseCards } from "../types/types";
+import { cardSelector } from "../store/slices/cardSlices";
+import { useSelector } from "react-redux";
+import { Context } from "../index";
+import { useContext, useState, useEffect } from "react";
+import { useCollection } from "react-firebase-hooks/firestore";
+import { collection } from "firebase/firestore";
+import { ICardResponse } from "../types/types";
 
-export type Card = {
-  nickname: string;
-  name: string;
-  description: string;
-  avatar?: string;
-  linkedin?: string;
-  github?: string;
-  youtube?: string;
-};
-
-interface IPreviewCardProps {
-  card: Card | undefined;
-  backgroundColor: string;
-  buttonColor: string;
-  textColor: string;
-}
-export const PreviewCard = ({
-  card,
-  backgroundColor,
-  buttonColor,
-  textColor,
-}: IPreviewCardProps) => {
+export const PreviewCard = () => {
+  const [card, setCard] = useState<ICardResponse | null>(null);
   const navigate = useNavigate();
+  const cardFromRedux = useSelector(cardSelector);
 
   const { nickname } = useParams();
-  const [currentCard, setCurrentCard] = useState<
-    IPreviewCardProps | IResponseCards
-  >();
+  const { db } = useContext(Context);
+
+  const [value, loadingCollection] = useCollection(collection(db, "cards"), {
+    snapshotListenOptions: { includeMetadataChanges: true },
+  });
   useEffect(() => {
-    console.log(nickname)
-  }, []);
+    if (nickname) {
+      const finded =
+        value?.docs &&
+        value?.docs.filter((doc) => doc.data().nickname === nickname);
+
+      if (finded) {
+        setCard(finded[0].data() as ICardResponse);
+      }
+    } else {
+      setCard(cardFromRedux);
+    }
+  }, [cardFromRedux, nickname, value?.docs]);
+
+  if (!card) return <>page not found</>;
 
   return (
     <Stack
       style={{
-        height: 550,
-        width: 300,
+        // height: "100%",
+        height: 700,
+        width: 375,
         background: "black",
         borderRadius: "20px",
         padding: "15px",
@@ -51,7 +52,7 @@ export const PreviewCard = ({
           width: "100%",
           borderRadius: "20px",
           padding: "0 20px",
-          background: `${backgroundColor}`,
+          background: `${card.style.backgroundColor}`,
           margin: 0,
         }}
         align={"center"}
@@ -67,75 +68,75 @@ export const PreviewCard = ({
             borderBottomRightRadius: "15px",
           }}
         ></div>
-        <Stack
-          justify={"center"}
-          align={"center"}
-          spacing={5}
-          style={{ color: textColor, textAlign: "center" }}
-        >
-          <div>@{card?.nickname}</div>
-          <div>{card?.avatar}</div>
-          <img
-            style={{ width: "80px", borderRadius: "50%" }}
-            src="https://media.licdn.com/dms/image/D4E35AQEobt_RK4dfZw/profile-framedphoto-shrink_100_100/0/1668525720508?e=1674900000&v=beta&t=GaIEzkO8o1B7ndJxQIpe-vYWgAWFwgyD6velbCj0DOs"
-            alt=""
-          />
-          {card?.name && <h2>{card?.name}</h2>}
-          {card?.description && <h4>{card?.description}</h4>}
-        </Stack>
-        <Stack spacing={24}>
-          {card?.linkedin && (
-            <Button
-              style={{
-                padding: "0 50px",
-                backgroundColor: buttonColor,
-                color: textColor,
-              }}
-              onClick={() => navigate(`${card?.linkedin}`)}
-            >
-              linkedin
-            </Button>
-          )}
-          {card?.github && (
-            <Button
-              style={{
-                padding: "0 50px",
-                backgroundColor: buttonColor,
-                color: textColor,
-              }}
-              onClick={() => navigate(`${card?.github}`)}
-            >
-              github
-            </Button>
-          )}
-          {card?.youtube && (
-            <Button
-              style={{
-                padding: "0 50px",
-                backgroundColor: buttonColor,
-                color: textColor,
-              }}
-              onClick={() => navigate(`${card?.youtube}`)}
-            >
-              youtube
-            </Button>
-          )}
-        </Stack>
 
-        <Flex
-          style={{
-            width: "150px",
-            height: "25px",
-            backgroundColor: "black",
-            borderTopLeftRadius: "15px",
-            borderTopRightRadius: "15px",
-            color: "rgb(181 182 243)",
-          }}
-          justify={"center"}
-          align={"center"}
-        >
-          I want so page!
-        </Flex>
+        {loadingCollection ? (
+          <Loader></Loader>
+        ) : (
+          <>
+            <Stack
+              justify={"center"}
+              align={"center"}
+              spacing={5}
+              style={{ color: card.style.textColor, textAlign: "center" }}
+            >
+              {card.data.name && <h2>{card.data.name}</h2>}
+              {card.data.description && <h4>{card.data.description}</h4>}
+            </Stack>
+            <Stack spacing={24}>
+              {card.data.linkedin && (
+                <Button
+                  style={{
+                    padding: "0 50px",
+                    backgroundColor: card.style.buttonColor,
+                    color: card.style.textColor,
+                  }}
+                  onClick={() => navigate(`${card.data.linkedin}`)}
+                >
+                  linkedin
+                </Button>
+              )}
+              {card.data.github && (
+                <Button
+                  style={{
+                    padding: "0 50px",
+                    backgroundColor: card.style.buttonColor,
+                    color: card.style.textColor,
+                  }}
+                  onClick={() => navigate(`${card.data.github}`)}
+                >
+                  github
+                </Button>
+              )}
+              {card.data.youtube && (
+                <Button
+                  style={{
+                    padding: "0 50px",
+                    backgroundColor: card.style.buttonColor,
+                    color: card.style.textColor,
+                  }}
+                  onClick={() => navigate(`${card.data.youtube}`)}
+                >
+                  youtube
+                </Button>
+              )}
+            </Stack>
+
+            <Flex
+              style={{
+                width: "180px",
+                height: "25px",
+                backgroundColor: "black",
+                borderTopLeftRadius: "15px",
+                borderTopRightRadius: "15px",
+                color: "rgb(181 182 243)",
+              }}
+              justify={"center"}
+              align={"center"}
+            >
+              I want the same page!
+            </Flex>
+          </>
+        )}
       </Stack>
     </Stack>
   );

@@ -39,7 +39,9 @@ export function WrapperApp({ children }: IWrapperApp) {
           <Group>{signControl()}</Group>
         </Flex>
       </Header>
-      {children}
+      <div style={{padding: '20px'}}>
+        {children}
+      </div>
     </Stack>
   );
 }
