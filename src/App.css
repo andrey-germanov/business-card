@@ -12,3 +12,6 @@ input[type="number"] {
 .App{
   height: 100%;
 }
+* {
+  word-break: break-all;
+}

@@ -51,6 +51,7 @@ const cardSlice = createSlice({
   initialState,
   reducers: {
     setCard(state, action) {
+      // console.log({type: action.type, payload: action.payload})
       state.nickname = action.payload.nickname;
       state.avatar = action.payload.avatar;
       state.data.name = action.payload.data.name;

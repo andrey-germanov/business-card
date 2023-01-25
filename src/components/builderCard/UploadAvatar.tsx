@@ -7,11 +7,13 @@ import {
   Text,
   Popover,
   Tooltip,
+  Flex,
+  Progress,
 } from "@mantine/core";
 import { storage } from "../..";
 import { useSelector, useDispatch } from "react-redux";
 import { cardSelector, setCard } from "../../store/slices/cardSlices";
-import { Stack } from '@mantine/core';
+import { Stack } from "@mantine/core";
 
 export const UploadAvatar = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -31,14 +33,18 @@ export const UploadAvatar = () => {
     handleSubmit();
     setImgUrl(null);
     setProgresspercent(0);
+    dispatch(
+      setCard({
+        ...card,
+        avatar: "",
+      })
+    );
   }, [file]);
 
   const handleSubmit = () => {
     if (!file) return;
     const storageRef = ref(storage, `files/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
-    console.log("storageRef", storageRef);
-    console.log("uploadTask", uploadTask);
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -71,20 +77,30 @@ export const UploadAvatar = () => {
 
   return (
     <>
-        {!imgUrl && (
-          <div className="outerbar">
-            <div className="innerbar" style={{ width: `${progresspercent}%` }}>
-              {progresspercent}%
-            </div>
-          </div>
-        )}
       <Group position="center" style={{ position: "relative" }}>
+        {!imgUrl && (
+          <Progress style={{ position: "absolute" }} value={progresspercent} />
+        )}
         <FileButton
           resetRef={resetRef}
           onChange={setFile}
           accept="image/png,image/jpeg"
         >
-          {(props) => <Button {...props}>Upload image</Button>}
+          {(props) => (
+            <Flex
+              {...props}
+              justify={"center"}
+              align={"center"}
+              style={{
+                width: 150,
+                height: 150,
+                borderRadius: "50%",
+                border: "1px solid black",
+              }}
+            >
+              upload avatar
+            </Flex>
+          )}
         </FileButton>
         <Button disabled={!file} color="red" onClick={clearFile}>
           Reset

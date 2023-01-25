@@ -1,51 +1,68 @@
-import { Button, Flex, Stack, Loader, Title } from "@mantine/core";
-import { useParams } from "react-router";
-import { Context } from "../../../index";
+import { Button, Flex, Stack, Loader, Text, Title } from "@mantine/core";
+import { useNavigate, useParams } from "react-router";
+import { ICard, cardSelector } from "../../../store/slices/cardSlices";
+import { useSelector } from "react-redux";
 import { useContext, useState, useEffect } from "react";
-import { useCollection } from "react-firebase-hooks/firestore";
-import { collection } from "firebase/firestore";
 import { ICardResponse } from "../../../types/types";
 
-export const Card = () => {
-  const [card, setCard] = useState<ICardResponse | null>(null);
-  const [notFound, setNotFound] = useState(false);
+interface IProps {
+  card: ICardResponse;
+}
+
+export const PreviewCard = ({card}: IProps) => {
+  // const [card, setCard] = useState<ICardResponse | null>(null);
+  const cardFromRedux = useSelector(cardSelector);
+
   const { nickname } = useParams();
-  const { db } = useContext(Context);
 
-  const [value, loadingCollection] = useCollection(collection(db, "cards"), {
-    snapshotListenOptions: { includeMetadataChanges: true },
-  });
   useEffect(() => {
-    setNotFound(false);
-    value?.docs.filter((doc) => {
-      if (Array(doc.data()) && doc.data().nickname === nickname) {
-        setCard(doc.data() as ICardResponse);
-      }
-      setNotFound(true);
-      return null;
-    });
-  }, [nickname, loadingCollection]);
+    // setCard(cardFromRedux);
+  }, [cardFromRedux]);
 
-  if (notFound && !card) return <>page not found</>;
-  if (!card) return <>loading </>;
+  if (!card) return <>loading</>;
+  // if (!card.data) return <>page not found</>;
+  // console.log(card.data);
   return (
+    <Stack
+      style={{
+        height: 700,
+        width: 375,
+        background: "black",
+        borderRadius: "30px",
+        padding: "15px",
+        position: "relative",
+      }}
+    >
       <Stack
         style={{
           height: "100%",
           width: "100%",
           borderRadius: "20px",
+          padding: "0 20px",
           margin: 0,
         }}
         align={"center"}
         spacing={0}
       >
+        <div
+          style={{
+            width: "150px",
+            height: "25px",
+            backgroundColor: "black",
+            borderBottomLeftRadius: "15px",
+            borderBottomRightRadius: "15px",
+            zIndex: 1,
+          }}
+        ></div>
 
         <div
           style={{
             background: `${card.style.backgroundColor}`,
-            width: "100%",
+            width: "calc(100% - 30px)",
             height: "40%",
             position: "absolute",
+            borderTopLeftRadius: "20px",
+            borderTopRightRadius: "20px",
           }}
         />
         <div
@@ -53,21 +70,22 @@ export const Card = () => {
             background: `#fff`,
             position: "absolute",
             bottom: "15px",
-            width: "100%",
+            width: "calc(100% - 30px)",
             height: "60%",
+            borderBottomLeftRadius: "20px",
+            borderBottomRightRadius: "20px",
           }}
         />
 
-        {loadingCollection ? (
+        {/* {loadingCollection ? (
           <Loader></Loader>
-        ) : (
+        ) : ( */}
           <Stack
             spacing={24}
             align={"center"}
             justify={"center"}
             style={{
-              width: "100%",
-              maxWidth: '550px',
+              width: "90%",
               background: "white",
               padding: "18px",
               marginTop: "20px",
@@ -85,7 +103,7 @@ export const Card = () => {
             {card.data.description && (
               <Title order={4}>{card.data.description}</Title>
             )}
-            <Stack style={{ width: "100%" }}>
+            <Stack style={{ width: '80%' }}>
               {card.data.linkedin && (
                 <Button
                   style={{
@@ -94,12 +112,7 @@ export const Card = () => {
                     color: card.style.textColor,
                   }}
                 >
-                  <a
-                    style={{ color: "#fff" }}
-                    href={card.data.linkedin}
-                    target={"_blank"}
-                    rel="noreferrer"
-                  >
+                  <a style={{ color: "#fff" }} href={card.data.linkedin} target={'_blank'} rel="noreferrer">
                     linkedin
                   </a>
                 </Button>
@@ -112,12 +125,7 @@ export const Card = () => {
                     color: card.style.textColor,
                   }}
                 >
-                  <a
-                    style={{ color: "#fff" }}
-                    href={card.data.github}
-                    target={"_blank"}
-                    rel="noreferrer"
-                  >
+                  <a style={{ color: "#fff" }} href={card.data.github} target={'_blank'} rel="noreferrer">
                     github
                   </a>
                 </Button>
@@ -130,19 +138,14 @@ export const Card = () => {
                     color: card.style.textColor,
                   }}
                 >
-                  <a
-                    style={{ color: "#fff" }}
-                    href={card.data.youtube}
-                    target={"_blank"}
-                    rel="noreferrer"
-                  >
+                  <a style={{ color: "#fff" }} href={card.data.youtube} target={'_blank'} rel="noreferrer">
                     youtube
                   </a>
                 </Button>
               )}
             </Stack>
           </Stack>
-        )}
+        {/* )} */}
 
         <Flex
           style={{
@@ -162,5 +165,6 @@ export const Card = () => {
           I want the same page!
         </Flex>
       </Stack>
+    </Stack>
   );
 };

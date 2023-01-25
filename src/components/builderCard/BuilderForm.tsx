@@ -1,7 +1,7 @@
-import { Stack, Button, Group, TextInput, FileInput } from "@mantine/core";
+import { Stack, Button, Group, TextInput } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { z } from "zod";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   collection,
   doc,
@@ -13,23 +13,25 @@ import {
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Context } from "../..";
-import { ICard, cardSelector, setCard } from "../../store/slices/cardSlices";
+import { ICard, setCard } from "../../store/slices/cardSlices";
 import { UploadAvatar } from "./UploadAvatar";
+import { ICardResponse } from "../../types/types";
 
 const fields = ["name", "description", "github", "linkedin", "youtube"];
 
 interface IProps {
-  successCreate: boolean;
+  card: ICardResponse;
 }
 
-export const BuilderForm = ({ successCreate }: IProps) => {
+export const BuilderForm = ({ card }: IProps) => {
+  const [successCreate, setSuccessCreate] = useState(false);
+
   const { db } = useContext(Context);
   const auth = getAuth();
-  const [user, loading] = useAuthState(auth);
+  const [user] = useAuthState(auth);
 
-  const card = useSelector(cardSelector);
   const dispatch = useDispatch();
 
   const form = useForm({
@@ -59,7 +61,7 @@ export const BuilderForm = ({ successCreate }: IProps) => {
   });
   useEffect(() => {
     form.setValues({ ...card.data });
-  }, [card.data, loading]);
+  }, []);
 
   useEffect(() => {
     const newData = {
@@ -94,7 +96,6 @@ export const BuilderForm = ({ successCreate }: IProps) => {
     return fields.map((field, key) => (
       <Group align={"center"} key={key}>
         <TextInput
-          defaultValue={field}
           label={field}
           placeholder={field}
           {...form.getInputProps(field)}
@@ -115,6 +116,7 @@ export const BuilderForm = ({ successCreate }: IProps) => {
   };
   return (
     <form onSubmit={form.onSubmit(handleFormSubmit)}>
+      {`${successCreate}`}
       <Stack spacing={24}>
         <UploadAvatar />
         {renderFields(fields)}

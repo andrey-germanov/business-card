@@ -5,7 +5,8 @@ import { BuilderCard } from "./components/builderCard/BuilderCard";
 import { MainScreen } from "./components/MainScreen";
 import { LoginPage } from "./pages/LoginPage";
 import { RegistrationPage } from "./pages/RegistrationPage";
-import { PreviewCard } from "./components/builderCard/Card/Card";
+import { PreviewCard } from "./components/builderCard/Card/PreviewCard";
+import { Card } from "./components/builderCard/Card/Card";
 
 const App = () => {
   return (
@@ -17,7 +18,7 @@ const App = () => {
             <Route path={`/register`} element={<RegistrationPage />} />
             {/* TODO: edit - /builder-card:userId */}
             <Route path={`/builder-card`} element={<BuilderCard />} />
-            <Route path={`/:nickname`} element={<PreviewCard />} />
+            <Route path={`/:nickname`} element={<Card />} />
           </Routes>
       </BrowserRouter>
     </div>
