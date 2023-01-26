@@ -110,7 +110,7 @@ export const Card = () => {
           borderTopRightRadius: "15px",
           color: "#fff",
           position: "absolute",
-          bottom: 15,
+          bottom: 0,
           fontSize: 13,
         }}
         justify={"center"}
