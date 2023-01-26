@@ -11,10 +11,9 @@ interface IWrapperApp {
 }
 
 export function WrapperApp({ children }: IWrapperApp) {
-  const navigate = useNavigate();
   const auth = getAuth();
   const [user, loading, error] = useAuthState(auth);
-  const [signOut, loadingSignOut, errorSignOut] = useSignOut(auth);
+  const [signOut] = useSignOut(auth);
 
   const signControl = () => {
     if (loading) return <>loading</>;
@@ -36,15 +35,20 @@ export function WrapperApp({ children }: IWrapperApp) {
       <Header
         style={{
           boxShadow: "rgba(0, 0, 0, 0.15) 0px 3px 15px",
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center'
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          zIndex: 0,
         }}
         height={70}
         p="md"
       >
-        <Flex style={{ width: '100%'}} justify={"space-between"} align={"center"}>
-          <Link style={{ color: 'black' }} to={"/"}>
+        <Flex
+          style={{ width: "100%" }}
+          justify={"space-between"}
+          align={"center"}
+        >
+          <Link style={{ color: "black" }} to={"/"}>
             <Flex align={"center"} justify={"center"} gap={10}>
               <Logo />
               <Text weight={300}>Smart Links</Text>

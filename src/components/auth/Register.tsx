@@ -4,12 +4,31 @@ import { Form } from "./Form";
 import { useNavigate } from "react-router";
 import { useContext } from "react";
 import { Context } from "../../index";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { Button, Stack, Input, Text, Group } from "@mantine/core";
-import { useForm, zodResolver } from "@mantine/form";
-import { z } from "zod";
+import { Stack, Input, Text, Group } from "@mantine/core";
+
+const starterInfo = {
+  avatar: "",
+  updatedAt: {
+    seconds: 0,
+    nanoseconds: 0,
+  },
+  data: {
+    name: "name",
+    description: "description",
+  },
+  createdAt: {
+    seconds: 0,
+    nanoseconds: 0,
+  },
+  style: {
+    backgroundColor: "#4e68de",
+    textColor: "#fff",
+    buttonColor: "#6486e3",
+  },
+  links: [],
+};
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -26,6 +45,7 @@ export const Register = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((res) => {
         addDoc(collection(db, `cards/`), {
+          ...starterInfo,
           clientId: res.user.uid,
           nickname,
           createdAt: serverTimestamp(),
@@ -51,7 +71,7 @@ export const Register = () => {
         <Input
           type="text"
           value={nickname}
-          placeholder="NickName"
+          placeholder="Nickname"
           onChange={(e) => setNickname(validateInput(e.target.value))}
         />
         {!!validateNickname?.length && (

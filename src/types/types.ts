@@ -1,14 +1,11 @@
-export interface UpdatedAt {
+export type UpdatedAt = {
   seconds: number;
   nanoseconds: number;
 }
 
-export interface Data {
-  linkedin: string;
-  description: string;
-  youtube: string;
+export type Data = {
   name: string;
-  github: string;
+  description: string;
 }
 
 export interface CreatedAt {
@@ -16,12 +13,18 @@ export interface CreatedAt {
   nanoseconds: number;
 }
 
-export interface Style {
+export type Style = {
   backgroundColor: string;
   textColor: string;
   buttonColor: string;
 }
 
+
+export type Link = {
+  titleLink: string;
+  descriptionLink: string;
+  link: string;
+}
 export interface ICardResponse {
   avatar: string;
   nickname: string;
@@ -30,4 +33,5 @@ export interface ICardResponse {
   clientId: string;
   createdAt: CreatedAt;
   style: Style;
+  links: Link[];
 }

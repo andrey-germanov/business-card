@@ -1,4 +1,4 @@
-import { Flex, Title } from "@mantine/core";
+import { Flex, Group, Stack, Title } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
@@ -7,7 +7,11 @@ import { PreviewCard } from "./Card/PreviewCard";
 import { WrapperApp } from "../WrapperApp";
 import { BuilderColor } from "./BuilderColor";
 import { BuilderForm } from "./BuilderForm";
-import { setCard, cardSelector } from "../../store/slices/cardSlices";
+import {
+  setCard,
+  cardSelector,
+  setFetchedCard,
+} from "../../store/slices/cardSlices";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { Context } from "../../index";
 import { useContext } from "react";
@@ -19,8 +23,8 @@ export const BuilderCard = () => {
   const { db } = useContext(Context);
 
   const [fetchLoading, setFetchLoading] = useState(false);
-
   const card = useSelector(cardSelector);
+
   const dispatch = useDispatch();
 
   const fetchCard = async () => {
@@ -29,48 +33,53 @@ export const BuilderCard = () => {
     const q = query(userRef, where("clientId", "==", user?.uid));
     const querySnapshot = await getDocs(q);
 
-    dispatch(setCard({ ...querySnapshot.docs[0].data() }));
+    dispatch(setFetchedCard({ ...querySnapshot.docs[0].data() }));
     setFetchLoading(false);
   };
   useEffect(() => {
     fetchCard();
   }, [loading, card.nickname]);
-
+  console.log(user?.email);
   if (!user && !loading) return <Navigate to={"/login"} replace />;
   return (
     <WrapperApp>
-      <div
-        style={{
-          width: "90%",
-          boxShadow: "rgba(0, 0, 0, 0.15) 0px 3px 15px",
-          borderRadius: "30px",
-          padding: "50px",
-        }}
-      >
+      <Stack>
         <Title order={1}>BuilderCard</Title>
         {fetchLoading ? (
           "loading"
         ) : (
-          <>
-            {card.nickname && (
-              <a
-                href={`${
-                  "https://business-card-lime.vercel.app/" + card.nickname
-                }`}
-                target={"_blank"}
-                rel="noreferrer"
-              >
-                link to your profile
-              </a>
-            )}
-            <Flex justify={"space-between"} align={"center"}>
-              <BuilderForm card={card} /> 
-              <BuilderColor card={card} />
-              <PreviewCard card={card} />
-            </Flex>
-          </>
+          <div style={{
+            display: 'flex',
+            gap:'50px'
+          }}>
+            <div
+              style={{
+                width: "90%",
+                boxShadow: "rgba(0, 0, 0, 0.15) 0px 3px 15px",
+                borderRadius: "30px",
+                padding: "50px",
+              }}
+            >
+              {card.nickname && (
+                <a
+                  href={`${
+                    "https://business-card-lime.vercel.app/" + card.nickname
+                  }`}
+                  target={"_blank"}
+                  rel="noreferrer"
+                >
+                  link to your profile
+                </a>
+              )}
+              <Flex justify={"space-between"} align={"center"}>
+                <BuilderForm card={card} />
+                <BuilderColor card={card} />
+              </Flex>
+            </div>
+            <PreviewCard card={card} />
+          </div>
         )}
-      </div>
+      </Stack>
     </WrapperApp>
   );
 };

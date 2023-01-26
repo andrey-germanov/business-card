@@ -9,6 +9,8 @@ import { firebaseConfig } from "./firebaseConfig";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from 'firebase/storage';
+import { MantineProvider } from "@mantine/core";
+import theme from './light.theme'
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -27,7 +29,9 @@ export const storage = getStorage(app);
 root.render(
   <Provider store={store}>
     <Context.Provider value={{ db }}>
-      <App />
+      <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
+        <App />
+      </MantineProvider>
     </Context.Provider>
   </Provider>
 );

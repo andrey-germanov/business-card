@@ -3,15 +3,12 @@ import { useDispatch } from "react-redux";
 import cardReducer from './slices/cardSlices';
 
 const rootReducer = combineReducers({
-  card: cardReducer
+  card: cardReducer,
 });
 
 export const setupStore = () => {
   return configureStore({
     reducer: rootReducer,
-    // middleware: (getDefaultMiddleware) =>
-    //   getDefaultMiddleware()
-    //     .concat(userAPI.middleware)
   });
 };
 

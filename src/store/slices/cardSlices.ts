@@ -6,9 +6,6 @@ export interface ICard {
   name?: string;
   description?: string;
   avatar?: string;
-  linkedin?: string;
-  github?: string;
-  youtube?: string;
   style: {
     backgroundColor: string;
     buttonColor: string;
@@ -27,9 +24,6 @@ const createdAt = {
 const data = {
   name: 'name',
   description: 'description',
-  linkedin: '',
-  youtube: '',
-  github: '',
 }
 const style = {
   backgroundColor: '#4e68de',
@@ -44,37 +38,41 @@ const initialState: ICardResponse = {
   clientId: '',
   createdAt: createdAt,
   style: style,
+  links: []
 };
 
 const cardSlice = createSlice({
   name: "card",
   initialState,
   reducers: {
-    setCard(state, action) {
-      // console.log({type: action.type, payload: action.payload})
+    setFetchedCard(state, action) {
       state.nickname = action.payload.nickname;
       state.avatar = action.payload.avatar;
       state.data.name = action.payload.data.name;
       state.data.description = action.payload.data.description;
-      state.data.linkedin = action.payload.data.linkedin;
-      state.data.github = action.payload.data.github;
-      state.data.youtube = action.payload.data.youtube;
+      state.links = action.payload.links;
       state.style.backgroundColor = action.payload.style.backgroundColor;
       state.style.buttonColor = action.payload.style.buttonColor;
       state.style.textColor = action.payload.style.textColor;
     },
-    // removeCard(state) {
-    //   state.name = action.payload.name;
-    //   state.description = action.payload.description;
-    //   state.avatar = action.payload.avatar;
-    //   state.linkedin = action.payload.linkedin;
-    //   state.github = action.payload.github;
-    //   state.youtube = action.payload.youtube;
-    // },
+    setCard(state, action) {
+      state.nickname = action.payload.nickname;
+      state.data.name = action.payload.data.name;
+      state.data.description = action.payload.data.description;
+    },
+    setAvatar(state, action){
+      state.avatar = action.payload.avatar;
+    },
+    setStyles(state, action) {
+      state.style.backgroundColor = action.payload.backgroundColor;
+    },
+    setLinks(state, action){
+      state.links = [...state.links, ...action.payload];
+    }
   },
 });
 
-export const { setCard } = cardSlice.actions;
+export const { setFetchedCard, setCard, setStyles, setLinks, setAvatar } = cardSlice.actions;
 
 export const cardSelector = (state: RootState) => state.card;
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Login } from "../components/auth/Login";
-import { Flex, Stack, Title, Button, Group } from '@mantine/core';
+import { Flex, Stack, Title, Button, Group } from "@mantine/core";
 
 export const LoginPage = () => {
   return (
@@ -17,13 +17,13 @@ export const LoginPage = () => {
         }}
         spacing={32}
       >
-        <Title align="center" color={'#000000a8'} order={1}>Login</Title>
+        <Title align="center" color={"#000000a8"} order={1}>
+          Login
+        </Title>
         <Login />
         <Group spacing={10}>
           Or
-          <Button style={{ padding: 0 }} variant="light">
-            <Link to={"/register"}>register</Link>
-          </Button>
+          <Link to={"/register"}>register</Link>
         </Group>
       </Stack>
     </Flex>

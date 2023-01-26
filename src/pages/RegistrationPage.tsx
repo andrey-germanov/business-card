@@ -17,13 +17,13 @@ export const RegistrationPage = () => {
         }}
         spacing={32}
       >
-        <Title align="center" color={'#000000a8'} order={1}>Registration</Title>
+        <Title align="center" color={"#000000a8"} order={1}>
+          Registration
+        </Title>
         <Register />
         <Group spacing={10}>
           Already have an account
-          <Button style={{ padding: 0 }} variant="light">
-            <Link to={"/login"}>sign in</Link>
-          </Button>
+          <Link to={"/login"}>sign in</Link>
         </Group>
       </Stack>
     </Flex>
