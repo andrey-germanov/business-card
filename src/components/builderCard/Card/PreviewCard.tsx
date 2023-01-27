@@ -11,9 +11,9 @@ export const PreviewCard = ({ card }: IProps) => {
   return (
     <Stack
       style={{
-        height: 700,
+        height: 600,
         minWidth: 375,
-        width: 575,
+        width: 425,
         background: "black",
         borderRadius: "30px",
         padding: "15px",
@@ -27,6 +27,7 @@ export const PreviewCard = ({ card }: IProps) => {
           borderRadius: "20px",
           padding: "0 20px",
           margin: 0,
+          overflow: 'auto'
         }}
         align={"center"}
         spacing={0}
@@ -82,19 +83,21 @@ export const PreviewCard = ({ card }: IProps) => {
             src={card.avatar}
             alt=""
           />
-          {card.data.name && <Title order={2}>{card.data.name}</Title>}
+          {card.data.name && <Title style={{ fontSize: 16 }} order={2}>{card.data.name}</Title>}
           {card.data.description && (
-            <Title order={4}>{card.data.description}</Title>
+            <Title style={{ fontSize: 12 }} order={4}>{card.data.description}</Title>
           )}
           <Stack style={{ width: "100%" }}>
             {!!card.links &&
               card.links.map((item: Link) => {
                 return (
                   <MyLink
+                    key={item.id}
                     backgroundColor={card.style.backgroundColor}
                     descriptionLink={item.descriptionLink}
                     titleLink={item.titleLink}
                     link={item.link}
+                    id={item.id}
                   />
                 );
               })}

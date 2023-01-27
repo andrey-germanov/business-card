@@ -21,7 +21,8 @@ export default {
         const label = {
           flexDirection: 'column',
           justifyContent: 'center',
-          whiteSpace: 'normal'
+          whiteSpace: 'normal',
+          gap: '3px'
         } as CSSObject;
         return {
           label,

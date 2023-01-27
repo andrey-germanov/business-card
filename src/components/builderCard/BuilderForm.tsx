@@ -1,4 +1,4 @@
-import { Stack, Button, Group, TextInput, Flex } from "@mantine/core";
+import { Stack, Button, Group, TextInput, Flex, ActionIcon, ThemeIcon } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { z } from "zod";
 import { useContext, useEffect, useState } from "react";
@@ -20,6 +20,7 @@ import { UploadAvatar } from "./UploadAvatar";
 import { ICardResponse, Link } from "../../types/types";
 import { BuilderLinksModal } from "./BuilderLinksModal";
 import { MyLink } from "./MyLink";
+import { IconAdjustments, IconPhoto } from '@tabler/icons';
 
 const fields = ["name", "description"];
 
@@ -54,7 +55,6 @@ export const BuilderForm = ({ card }: IProps) => {
   }, []);
 
   useEffect(() => {
-    console.log(card.data.name);
     const newData = {
       ...card,
       data: {
@@ -92,7 +92,7 @@ export const BuilderForm = ({ card }: IProps) => {
         {...form.getInputProps(field)}
         rightSection={
           <div
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", fontSize: 10, opacity: .6 }}
             onClick={() => form.setValues({ [field]: "" })}
           >
             x
@@ -108,7 +108,9 @@ export const BuilderForm = ({ card }: IProps) => {
     <form onSubmit={form.onSubmit(handleFormSubmit)}>
       <Stack spacing={24}>
         <UploadAvatar />
-        {renderFields(fields)}
+        <div>
+          {renderFields(fields)}
+        </div>
 
         <Flex
           justify={"center"}
@@ -125,10 +127,11 @@ export const BuilderForm = ({ card }: IProps) => {
             card.links.map((item: Link) => {
               return (
                 <MyLink
-                  // backgroundColor={card.style.backgroundColor}
                   descriptionLink={item.descriptionLink}
                   titleLink={item.titleLink}
                   link={item.link}
+                  id={item.id}
+                  editableLink
                 />
               );
             })}

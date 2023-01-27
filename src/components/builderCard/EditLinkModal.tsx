@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+import React, { SetStateAction, useState } from "react";
 import { Modal, Stack, TextInput, Group, Button } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { z } from "zod";
-import { useDispatch } from "react-redux";
-import { setLinks } from "../../store/slices/cardSlices";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  linksSelector,
+  setLinks,
+  updateLink,
+} from "../../store/slices/cardSlices";
 import { Link } from "../../types/types";
+import { useEffect } from "react";
 
-export const BuilderLinksModal = () => {
+type IProps = {
+  id: number;
+};
+
+export const EditLinkModal = ({ id }: IProps) => {
   const [opened, setOpened] = useState(false);
+  const [currentLink, setCurrentLink] = useState<SetStateAction<Link | []>>([]);
+  const links = useSelector(linksSelector);
   const dispatch = useDispatch();
 
   const form = useForm({
@@ -27,17 +38,20 @@ export const BuilderLinksModal = () => {
       link: "https://",
     },
   });
+  useEffect(() => {
+    const currentLink = links.filter((item) => item.id === id)[0];
+    form.setValues(currentLink);
+  }, [opened]);
 
   const handleFormSubmit = (data: Omit<Link, "id">) => {
-    const newData = [
-      {
-        ...data,
-        id: Date.now(),
-      },
-    ];
-    dispatch(setLinks(newData));
+    dispatch(updateLink({ ...data, id }));
     setOpened(false);
     form.reset();
+  };
+
+  const handleLinkEdit = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.preventDefault();
+    setOpened(true);
   };
   return (
     <>
@@ -108,12 +122,12 @@ export const BuilderLinksModal = () => {
                   width: "100%",
                 }}
               />
-              <Button type={"submit"}>Add</Button>
+              <Button type={"submit"}>Edit</Button>
             </Stack>
           </Stack>
         </form>
       </Modal>
-      <Button onClick={() => setOpened(true)}>Add button</Button>
+      <div style={{ fontSize: 12 }} onClick={(e) => handleLinkEdit(e)}>Edit </div>
     </>
   );
 };

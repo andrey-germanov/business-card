@@ -36,6 +36,7 @@ export const Card = () => {
         width: "100%",
         borderRadius: "20px",
         margin: 0,
+        padding: '0 10px'
       }}
       align={"center"}
       spacing={0}
@@ -94,6 +95,7 @@ export const Card = () => {
                     descriptionLink={item.descriptionLink}
                     titleLink={item.titleLink}
                     link={item.link}
+                    id={item.id}
                   />
                 );
               })}

@@ -21,6 +21,7 @@ export type Style = {
 
 
 export type Link = {
+  id: number;
   titleLink: string;
   descriptionLink: string;
   link: string;

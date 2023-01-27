@@ -39,12 +39,11 @@ export const BuilderCard = () => {
   useEffect(() => {
     fetchCard();
   }, [loading, card.nickname]);
-  console.log(user?.email);
+  
   if (!user && !loading) return <Navigate to={"/login"} replace />;
   return (
     <WrapperApp>
       <Stack>
-        <Title order={1}>BuilderCard</Title>
         {fetchLoading ? (
           "loading"
         ) : (

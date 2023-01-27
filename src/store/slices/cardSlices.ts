@@ -68,12 +68,19 @@ const cardSlice = createSlice({
     },
     setLinks(state, action){
       state.links = [...state.links, ...action.payload];
+    },
+    updateLink(state, action){
+      state.links = state.links.map(link=> {
+        if (link.id === action.payload.id) return action.payload;
+        return link
+      })
     }
   },
 });
 
-export const { setFetchedCard, setCard, setStyles, setLinks, setAvatar } = cardSlice.actions;
+export const { setFetchedCard, setCard, setStyles, setLinks, setAvatar, updateLink } = cardSlice.actions;
 
 export const cardSelector = (state: RootState) => state.card;
+export const linksSelector = (state: RootState) => state.card.links;
 
 export default cardSlice.reducer;
