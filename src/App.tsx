@@ -1,12 +1,12 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { BuilderCard } from "./components/builderCard/BuilderCard";
+import { BuilderCard } from "./pages/BuilderCard";
 import { MainScreen } from "./components/MainScreen";
 import { LoginPage } from "./pages/LoginPage";
 import { RegistrationPage } from "./pages/RegistrationPage";
-import { PreviewCard } from "./components/builderCard/Card/PreviewCard";
-import { Card } from "./components/builderCard/Card/Card";
+import { PreviewCard } from "./components/builderCard/PreviewCard";
+import { Card } from "./pages/Card";
 
 const App = () => {
   return (

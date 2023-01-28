@@ -1,4 +1,12 @@
-import { Stack, Button, Group, TextInput, Flex, ActionIcon, ThemeIcon } from "@mantine/core";
+import {
+  Stack,
+  Button,
+  Group,
+  TextInput,
+  Flex,
+  ActionIcon,
+  ThemeIcon,
+} from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { z } from "zod";
 import { useContext, useEffect, useState } from "react";
@@ -20,7 +28,8 @@ import { UploadAvatar } from "./UploadAvatar";
 import { ICardResponse, Link } from "../../types/types";
 import { BuilderLinksModal } from "./BuilderLinksModal";
 import { MyLink } from "./MyLink";
-import { IconAdjustments, IconPhoto } from '@tabler/icons';
+import { IconAdjustments, IconPhoto } from "@tabler/icons";
+import { FormInput } from "../shared/FormInput";
 
 const fields = ["name", "description"];
 
@@ -29,8 +38,6 @@ interface IProps {
 }
 
 export const BuilderForm = ({ card }: IProps) => {
-  const [successCreate, setSuccessCreate] = useState(false);
-
   const { db } = useContext(Context);
   const auth = getAuth();
   const [user] = useAuthState(auth);
@@ -65,81 +72,41 @@ export const BuilderForm = ({ card }: IProps) => {
     dispatch(setCard(newData));
   }, [form.values]);
 
-  const handleFormSubmit = async (data: any) => {
-    if (!user?.uid) return;
-    try {
-      const userRef = collection(db, "cards");
+  // const handleFormSubmit = async (data: any) => {
+  //   if (!user?.uid) return;
+  //   try {
+  //     const userRef = collection(db, "cards");
 
-      const q = query(userRef, where("clientId", "==", user.uid));
-      const querySnapshot = await getDocs(q);
+  //     const q = query(userRef, where("clientId", "==", user.uid));
+  //     const querySnapshot = await getDocs(q);
 
-      await updateDoc(doc(db, `cards/${querySnapshot.docs[0].id}/`), {
-        data,
-        avatar: card.avatar,
-        style: { ...card.style },
-        links: card.links,
-        updatedAt: serverTimestamp(),
-      });
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
-  };
+  //     await updateDoc(doc(db, `cards/${querySnapshot.docs[0].id}/`), {
+  //       data,
+  //       avatar: card.avatar,
+  //       style: { ...card.style },
+  //       links: card.links,
+  //       updatedAt: serverTimestamp(),
+  //     });
+  //   } catch (e) {
+  //     console.error("Error adding document: ", e);
+  //   }
+  // };
+
   const renderFields = (fields: string[]) => {
     return fields.map((field, key) => (
-      <TextInput
-        label={field}
-        placeholder={field}
+      <FormInput
+        key={key}
+        field={field}
         {...form.getInputProps(field)}
-        rightSection={
-          <div
-            style={{ cursor: "pointer", fontSize: 10, opacity: .6 }}
-            onClick={() => form.setValues({ [field]: "" })}
-          >
-            x
-          </div>
-        }
-        style={{
-          width: "100%",
-        }}
+        setValues={form.setValues}
       />
     ));
   };
   return (
-    <form onSubmit={form.onSubmit(handleFormSubmit)}>
+    <form>
       <Stack spacing={24}>
         <UploadAvatar />
-        <div>
-          {renderFields(fields)}
-        </div>
-
-        <Flex
-          justify={"center"}
-          align={"center"}
-          gap={24}
-          direction={"column"}
-          style={{
-            boxShadow: "rgba(0, 0, 0, 0.15) 0px 3px 15px",
-            borderRadius: "30px",
-            padding: "20px",
-          }}
-        >
-          {!!card.links &&
-            card.links.map((item: Link) => {
-              return (
-                <MyLink
-                  descriptionLink={item.descriptionLink}
-                  titleLink={item.titleLink}
-                  link={item.link}
-                  id={item.id}
-                  editableLink
-                />
-              );
-            })}
-          <BuilderLinksModal />
-        </Flex>
-        <Button disabled={successCreate} type={"submit"}>
-          Publish
-        </Button>
+        {renderFields(fields)}
       </Stack>
     </form>
   );

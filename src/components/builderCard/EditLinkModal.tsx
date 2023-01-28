@@ -10,6 +10,7 @@ import {
 } from "../../store/slices/cardSlices";
 import { Link } from "../../types/types";
 import { useEffect } from "react";
+import { FormInput } from "../shared/FormInput";
 
 type IProps = {
   id: number;
@@ -17,7 +18,6 @@ type IProps = {
 
 export const EditLinkModal = ({ id }: IProps) => {
   const [opened, setOpened] = useState(false);
-  const [currentLink, setCurrentLink] = useState<SetStateAction<Link | []>>([]);
   const links = useSelector(linksSelector);
   const dispatch = useDispatch();
 
@@ -25,7 +25,6 @@ export const EditLinkModal = ({ id }: IProps) => {
     validate: zodResolver(
       z.object({
         titleLink: z.string().min(5),
-        descriptionLink: z.string().min(8),
         link: z
           .string()
           .startsWith("https://", { message: "Must provide secure URL" }),
@@ -73,55 +72,9 @@ export const EditLinkModal = ({ id }: IProps) => {
                 padding: 24,
               }}
             >
-              <TextInput
-                label={"Title link"}
-                placeholder={"title link"}
-                {...form.getInputProps("titleLink")}
-                rightSection={
-                  <div
-                    style={{ cursor: "pointer", fontSize: 10, opacity: .6 }}
-                    onClick={() => form.setValues({ titleLink: "" })}
-                  >
-                    x
-                  </div>
-                }
-                style={{
-                  width: "100%",
-                }}
-              />
-              <TextInput
-                label={"Description link"}
-                placeholder={"Description link"}
-                {...form.getInputProps("descriptionLink")}
-                rightSection={
-                  <div
-                    style={{ cursor: "pointer", fontSize: 10, opacity: .6 }}
-                    onClick={() => form.setValues({ descriptionLink: "" })}
-                  >
-                    x
-                  </div>
-                }
-                style={{
-                  width: "100%",
-                }}
-              />
-
-              <TextInput
-                label={"Link"}
-                placeholder={"Link"}
-                {...form.getInputProps("link")}
-                rightSection={
-                  <div
-                    style={{ cursor: "pointer", fontSize: 10, opacity: .6 }}
-                    onClick={() => form.setValues({ link: "" })}
-                  >
-                    x
-                  </div>
-                }
-                style={{
-                  width: "100%",
-                }}
-              />
+              <FormInput field="Title link" {...form.getInputProps('titleLink')} setValues={form.setValues}/>
+              <FormInput field="Description link" {...form.getInputProps('descriptionLink')} setValues={form.setValues}/>
+              <FormInput field="Link" {...form.getInputProps('link')} setValues={form.setValues}/>
               <Button type={"submit"}>Edit</Button>
             </Stack>
           </Stack>

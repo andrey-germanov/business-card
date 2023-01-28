@@ -3,7 +3,7 @@ export type UpdatedAt = {
   nanoseconds: number;
 }
 
-export type Data = {
+export interface Data {
   name: string;
   description: string;
 }

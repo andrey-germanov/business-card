@@ -1,11 +1,11 @@
 import { Button, Flex, Stack, Loader, Title, Text } from "@mantine/core";
 import { useParams } from "react-router";
-import { Context } from "../../../index";
+import { Context } from "../index";
 import { useContext, useState, useEffect } from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { collection } from "firebase/firestore";
-import { ICardResponse, Link } from "../../../types/types";
-import { MyLink } from "../MyLink";
+import { ICardResponse, Link } from "../types/types";
+import { MyLink } from "../components/builderCard/MyLink";
 
 export const Card = () => {
   const [card, setCard] = useState<ICardResponse | null>(null);
@@ -107,18 +107,16 @@ export const Card = () => {
         style={{
           width: "170px",
           height: "25px",
-          background: `${card.style.backgroundColor}`,
-          borderTopLeftRadius: "15px",
-          borderTopRightRadius: "15px",
-          color: "#fff",
-          position: "absolute",
-          bottom: 0,
+          borderRadius: '15px',
+          color: "#00000063",
           fontSize: 13,
+          marginTop: '25px',
+          zIndex: 3,
         }}
         justify={"center"}
         align={"center"}
       >
-        I want the same page!
+        Created by @smart link
       </Flex>
     </Stack>
   );

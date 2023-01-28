@@ -1,6 +1,6 @@
 import { Flex, Stack, Title } from "@mantine/core";
-import { ICardResponse, Link } from "../../../types/types";
-import { MyLink } from "../MyLink";
+import { ICardResponse, Link } from "../../types/types";
+import { MyLink } from "./MyLink";
 
 interface IProps {
   card: ICardResponse;
@@ -27,7 +27,7 @@ export const PreviewCard = ({ card }: IProps) => {
           borderRadius: "20px",
           padding: "0 20px",
           margin: 0,
-          overflow: 'auto'
+          overflow: "auto",
         }}
         align={"center"}
         spacing={0}
@@ -83,9 +83,15 @@ export const PreviewCard = ({ card }: IProps) => {
             src={card.avatar}
             alt=""
           />
-          {card.data.name && <Title style={{ fontSize: 16 }} order={2}>{card.data.name}</Title>}
+          {card.data.name && (
+            <Title style={{ fontSize: 16 }} order={2}>
+              {card.data.name}
+            </Title>
+          )}
           {card.data.description && (
-            <Title style={{ fontSize: 12 }} order={4}>{card.data.description}</Title>
+            <Title style={{ fontSize: 12 }} order={4}>
+              {card.data.description}
+            </Title>
           )}
           <Stack style={{ width: "100%" }}>
             {!!card.links &&
@@ -107,18 +113,16 @@ export const PreviewCard = ({ card }: IProps) => {
           style={{
             width: "170px",
             height: "25px",
-            background: `${card.style.backgroundColor}`,
-            borderTopLeftRadius: "15px",
-            borderTopRightRadius: "15px",
-            color: "#fff",
-            position: "absolute",
-            bottom: 15,
+            borderRadius: "15px",
+            color: "#00000063",
             fontSize: 13,
+            marginTop: '25px',
+            zIndex: 3,
           }}
           justify={"center"}
           align={"center"}
         >
-          I want the same page!
+          Created by @smart link
         </Flex>
       </Stack>
     </Stack>

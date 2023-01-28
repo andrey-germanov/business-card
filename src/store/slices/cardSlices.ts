@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../index";
-import { ICardResponse } from '../../types/types';
+import { ICardResponse } from "../../types/types";
 
 export interface ICard {
   name?: string;
@@ -15,30 +15,30 @@ export interface ICard {
 
 const updatedAt = {
   seconds: 0,
-  nanoseconds: 0
-}
+  nanoseconds: 0,
+};
 const createdAt = {
   seconds: 0,
-  nanoseconds: 0
-}
+  nanoseconds: 0,
+};
 const data = {
-  name: 'name',
-  description: 'description',
-}
+  name: "name",
+  description: "description",
+};
 const style = {
-  backgroundColor: '#4e68de',
-  textColor: '#fff',
-  buttonColor: '#6486e3',
-}
+  backgroundColor: "#4e68de",
+  textColor: "#fff",
+  buttonColor: "#6486e3",
+};
 const initialState: ICardResponse = {
-  avatar: '',
-  nickname: '',
+  avatar: "",
+  nickname: "",
   updatedAt: updatedAt,
   data: data,
-  clientId: '',
+  clientId: "",
   createdAt: createdAt,
   style: style,
-  links: []
+  links: [],
 };
 
 const cardSlice = createSlice({
@@ -60,25 +60,36 @@ const cardSlice = createSlice({
       state.data.name = action.payload.data.name;
       state.data.description = action.payload.data.description;
     },
-    setAvatar(state, action){
+    setAvatar(state, action) {
       state.avatar = action.payload.avatar;
     },
     setStyles(state, action) {
       state.style.backgroundColor = action.payload.backgroundColor;
     },
-    setLinks(state, action){
+    setLinks(state, action) {
       state.links = [...state.links, ...action.payload];
     },
-    updateLink(state, action){
-      state.links = state.links.map(link=> {
+    updateLink(state, action) {
+      state.links = state.links.map((link) => {
         if (link.id === action.payload.id) return action.payload;
-        return link
-      })
-    }
+        return link;
+      });
+    },
+    deleteLink(state, action) {
+      state.links = state.links.filter((item) => action.payload !== item.id);
+    },
   },
 });
 
-export const { setFetchedCard, setCard, setStyles, setLinks, setAvatar, updateLink } = cardSlice.actions;
+export const {
+  setFetchedCard,
+  setCard,
+  setStyles,
+  setLinks,
+  setAvatar,
+  updateLink,
+  deleteLink,
+} = cardSlice.actions;
 
 export const cardSelector = (state: RootState) => state.card;
 export const linksSelector = (state: RootState) => state.card.links;
