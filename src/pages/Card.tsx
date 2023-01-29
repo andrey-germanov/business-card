@@ -29,7 +29,6 @@ export const Card = () => {
 
   if (notFound && !card) return <>page not found</>;
   if (!card) return <>loading </>;
-  console.log(card.style)
   return (
     <Stack
       style={{
