@@ -1,5 +1,5 @@
 import {
-  browserSessionPersistence,
+  browserLocalPersistence,
   getAuth,
   setPersistence,
   signInWithEmailAndPassword,
@@ -15,7 +15,7 @@ export const Login = () => {
   const HandleLogin = (email: string, password: string) => {
     const auth = getAuth();
 
-    setPersistence(auth, browserSessionPersistence)
+    setPersistence(auth, browserLocalPersistence)
       .then(() => {
         return signInWithEmailAndPassword(auth, email, password)
           .then(() => navigate("/"))
