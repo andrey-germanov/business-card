@@ -24,7 +24,7 @@ const starterInfo = {
   },
   style: {
     backgroundColor: "#4e68de",
-    textColor: "#fff",
+    textColor: "black",
     buttonColor: "#6486e3",
   },
   links: [],
