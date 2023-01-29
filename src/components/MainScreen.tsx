@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import { WrapperApp } from "./WrapperApp";
 import { Flex } from '@mantine/core';
+import { getAuth } from 'firebase/auth';
 
 export const MainScreen = () => {
+  const auth = getAuth();
+
   return (
     <WrapperApp>
       <div

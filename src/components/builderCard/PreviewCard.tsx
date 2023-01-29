@@ -30,7 +30,7 @@ export const PreviewCard = ({ card }: IProps) => {
           overflow: "auto",
           backgroundSize: "cover",
           backgroundImage: `url('${card.style.backgroundImage}')`,
-          backgroundColor: card.style.backgroundColor
+          backgroundColor: card.style.backgroundColor,
         }}
         align={"center"}
         spacing={0}
@@ -73,13 +73,13 @@ export const PreviewCard = ({ card }: IProps) => {
           justify={"center"}
           style={{
             width: "100%",
-            background: card.style.backgroundColor ? "white" : '',
+            background: card.style.backgroundColor ? "white" : "",
             padding: "18px",
             marginTop: "20px",
             borderRadius: "20px",
             boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
             zIndex: 2,
-            color: card.style.textColor
+            color: card.style.textColor,
           }}
         >
           <img
@@ -119,7 +119,6 @@ export const PreviewCard = ({ card }: IProps) => {
             width: "170px",
             height: "25px",
             borderRadius: "15px",
-            color: card.style.textColor,
             fontSize: 13,
             marginTop: "25px",
             zIndex: 3,
@@ -127,7 +126,16 @@ export const PreviewCard = ({ card }: IProps) => {
           justify={"center"}
           align={"center"}
         >
-          Created by @smart link
+          <a
+            style={{
+              color: card.style.textColor,
+            }}
+            href="https://business-card-lime.vercel.app/"
+            target={"_blank"}
+            rel="noreferrer"
+          >
+            Created by @smart link
+          </a>
         </Flex>
       </Stack>
     </Stack>

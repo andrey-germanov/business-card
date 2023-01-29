@@ -121,7 +121,7 @@ export const Card = () => {
         justify={"center"}
         align={"center"}
       >
-        Created by @smart link
+        <a href="https://business-card-lime.vercel.app/" target={'_blank'} rel="noreferrer">Created by @smart link</a>
       </Flex>
     </Stack>
   );

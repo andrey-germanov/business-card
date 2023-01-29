@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { Header, Text, Group, Button, Badge, Flex, Stack } from "@mantine/core";
-import { useAuth } from "../hooks/useAuth";
 import { signOut, getAuth } from "firebase/auth";
 import { useNavigate } from "react-router";
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
