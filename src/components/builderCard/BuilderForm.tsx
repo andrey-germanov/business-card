@@ -26,8 +26,8 @@ import { Context } from "../..";
 import { ICard, setCard } from "../../store/slices/cardSlices";
 import { UploadAvatar } from "./UploadAvatar";
 import { ICardResponse, Link } from "../../types/types";
-import { BuilderLinksModal } from "./BuilderLinksModal";
-import { MyLink } from "./MyLink";
+import { BuilderLinksModal } from "./BuilderLink/BuilderLinksModal";
+import { MyLink } from "../shared/MyLink";
 import { IconAdjustments, IconPhoto } from "@tabler/icons";
 import { FormInput } from "../shared/FormInput";
 

@@ -15,6 +15,7 @@ export interface CreatedAt {
 
 export type Style = {
   backgroundColor: string;
+  backgroundImage: string;
   textColor: string;
   buttonColor: string;
 }

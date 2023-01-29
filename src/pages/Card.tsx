@@ -5,7 +5,7 @@ import { useContext, useState, useEffect } from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { collection } from "firebase/firestore";
 import { ICardResponse, Link } from "../types/types";
-import { MyLink } from "../components/builderCard/MyLink";
+import { MyLink } from "../components/shared/MyLink";
 
 export const Card = () => {
   const [card, setCard] = useState<ICardResponse | null>(null);
@@ -29,19 +29,22 @@ export const Card = () => {
 
   if (notFound && !card) return <>page not found</>;
   if (!card) return <>loading </>;
+  console.log(card.style)
   return (
     <Stack
       style={{
         height: "100%",
         width: "100%",
-        borderRadius: "20px",
         margin: 0,
-        padding: '0 10px'
+        padding: '0 10px',
+        backgroundSize: 'cover',
+        backgroundImage: `url('${card.style.backgroundImage}')`,
+        backgroundColor: card.style.backgroundColor
       }}
       align={"center"}
       spacing={0}
     >
-      <div
+      {/* <div
         style={{
           background: `${card.style.backgroundColor}`,
           width: "100%",
@@ -57,7 +60,7 @@ export const Card = () => {
           width: "100%",
           height: "60%",
         }}
-      />
+      /> */}
 
       {loadingCollection ? (
         <Loader></Loader>
@@ -69,12 +72,13 @@ export const Card = () => {
           style={{
             width: "100%",
             maxWidth: "550px",
-            background: "white",
             padding: "18px",
             marginTop: "20px",
             borderRadius: "20px",
             boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
             zIndex: 2,
+            color: card.style.textColor,
+            background: card.style.backgroundColor ? "white" : '',
           }}
         >
           <img
@@ -91,11 +95,13 @@ export const Card = () => {
               card.links.map((item: Link) => {
                 return (
                   <MyLink
-                    backgroundColor={card.style.backgroundColor}
+                    backgroundColor={card.style.buttonColor}
+                    textColor={card.style.textColor}
                     descriptionLink={item.descriptionLink}
                     titleLink={item.titleLink}
                     link={item.link}
                     id={item.id}
+                    key={item.id}
                   />
                 );
               })}
@@ -108,7 +114,7 @@ export const Card = () => {
           width: "170px",
           height: "25px",
           borderRadius: '15px',
-          color: "#00000063",
+          color: card.style.textColor,
           fontSize: 13,
           marginTop: '25px',
           zIndex: 3,

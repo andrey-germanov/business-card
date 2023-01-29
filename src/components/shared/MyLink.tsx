@@ -1,10 +1,11 @@
 import { Button, Flex, Stack } from "@mantine/core";
 import React from "react";
-import { EditLinkModal } from "./EditLinkModal";
-import { DeleteLinkModal } from "./DeleteLinkModal";
+import { EditLinkModal } from "../builderCard/BuilderLink/EditLinkModal";
+import { DeleteLinkModal } from "../builderCard/BuilderLink/DeleteLinkModal";
 
 type IProps = {
   backgroundColor?: string;
+  textColor?: string;
   editableLink?: boolean;
   id: number;
   link: string;
@@ -14,6 +15,7 @@ type IProps = {
 
 export const MyLink = ({
   backgroundColor = "#228be6",
+  textColor,
   editableLink,
   id,
   link,
@@ -30,8 +32,8 @@ export const MyLink = ({
       <Button
         style={{
           padding: "10px",
-          backgroundColor: `${backgroundColor}`,
-          color: "#fff",
+          backgroundColor: backgroundColor,
+          color: textColor,
           height: "auto",
           borderRadius: "20px",
           textAlign: "center",
@@ -45,14 +47,14 @@ export const MyLink = ({
       >
         <div
           style={{
-            fontSize: "12px",
+            fontSize: "14px",
           }}
         >
           {titleLink}
         </div>
         <div
           style={{
-            fontSize: "10px",
+            fontSize: "12px",
             opacity: 0.7,
           }}
         >

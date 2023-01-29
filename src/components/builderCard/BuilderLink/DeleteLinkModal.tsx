@@ -8,11 +8,11 @@ import {
   linksSelector,
   setLinks,
   updateLink,
-} from "../../store/slices/cardSlices";
-import { Link } from "../../types/types";
+} from "../../../store/slices/cardSlices";
+import { Link } from "../../../types/types";
 import { useEffect } from "react";
-import { FormInput } from "../shared/FormInput";
-import { MyLink } from "./MyLink";
+import { FormInput } from "../../shared/FormInput";
+import { MyLink } from "../../shared/MyLink";
 
 type IProps = {
   id: number;

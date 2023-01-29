@@ -27,6 +27,7 @@ const data = {
 };
 const style = {
   backgroundColor: "#4e68de",
+  backgroundImage: '',
   textColor: "#fff",
   buttonColor: "#6486e3",
 };
@@ -52,6 +53,7 @@ const cardSlice = createSlice({
       state.data.description = action.payload.data.description;
       state.links = action.payload.links;
       state.style.backgroundColor = action.payload.style.backgroundColor;
+      state.style.backgroundImage = action.payload.style.backgroundImage;
       state.style.buttonColor = action.payload.style.buttonColor;
       state.style.textColor = action.payload.style.textColor;
     },
@@ -65,6 +67,15 @@ const cardSlice = createSlice({
     },
     setStyles(state, action) {
       state.style.backgroundColor = action.payload.backgroundColor;
+    },
+    setButtonColor(state, action) {
+      state.style.buttonColor = action.payload.buttonColor;
+    },
+    setBackgroundImage(state, action) {
+      state.style.backgroundImage = action.payload;
+    },
+    setTextColor(state, action){
+      state.style.textColor = action.payload.textColor;
     },
     setLinks(state, action) {
       state.links = [...state.links, ...action.payload];
@@ -89,6 +100,9 @@ export const {
   setAvatar,
   updateLink,
   deleteLink,
+  setBackgroundImage,
+  setButtonColor,
+  setTextColor
 } = cardSlice.actions;
 
 export const cardSelector = (state: RootState) => state.card;

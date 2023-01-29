@@ -4,9 +4,6 @@ import {
   FileButton,
   Button,
   Group,
-  Text,
-  Popover,
-  Tooltip,
   Flex,
   Progress,
 } from "@mantine/core";
@@ -15,7 +12,6 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   cardSelector,
   setAvatar,
-  setCard,
 } from "../../store/slices/cardSlices";
 import { Stack } from "@mantine/core";
 
@@ -31,12 +27,10 @@ export const UploadAvatar = () => {
     dispatch(setAvatar(""));
   };
 
-  const [imgUrl, setImgUrl] = useState<string | null>(null);
   const [progresspercent, setProgresspercent] = useState(0);
 
   useEffect(() => {
     handleSubmit();
-    setImgUrl(null);
     setProgresspercent(0);
   }, [file]);
 
@@ -57,7 +51,6 @@ export const UploadAvatar = () => {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setImgUrl(downloadURL);
           dispatch(
             setAvatar({
               avatar: downloadURL,
@@ -71,6 +64,7 @@ export const UploadAvatar = () => {
   return (
     <>
       <Stack>
+        <div>
         <Progress value={progresspercent} />
         <Group>
           <FileButton
@@ -99,6 +93,7 @@ export const UploadAvatar = () => {
             Reset
           </Button>
         </Group>
+        </div>
       </Stack>
     </>
   );

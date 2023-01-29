@@ -1,7 +1,7 @@
 import { Flex } from "@mantine/core";
 import React from "react";
-import { ICardResponse, Link } from "../../types/types";
-import { MyLink } from "./MyLink";
+import { ICardResponse, Link } from "../../../types/types";
+import { MyLink } from "../../shared/MyLink";
 import { BuilderLinksModal } from "./BuilderLinksModal";
 
 interface IProps {

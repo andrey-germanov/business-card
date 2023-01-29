@@ -1,6 +1,6 @@
 import { Flex, Stack, Title } from "@mantine/core";
 import { ICardResponse, Link } from "../../types/types";
-import { MyLink } from "./MyLink";
+import { MyLink } from "../shared/MyLink";
 
 interface IProps {
   card: ICardResponse;
@@ -8,10 +8,11 @@ interface IProps {
 
 export const PreviewCard = ({ card }: IProps) => {
   if (!card) return <>loading</>;
+  console.log(card.style)
   return (
     <Stack
       style={{
-        height: 600,
+        height: 700,
         minWidth: 375,
         width: 425,
         background: "black",
@@ -28,6 +29,9 @@ export const PreviewCard = ({ card }: IProps) => {
           padding: "0 20px",
           margin: 0,
           overflow: "auto",
+          backgroundSize: "cover",
+          backgroundImage: `url('${card.style.backgroundImage}')`,
+          backgroundColor: card.style.backgroundColor
         }}
         align={"center"}
         spacing={0}
@@ -43,7 +47,7 @@ export const PreviewCard = ({ card }: IProps) => {
           }}
         ></div>
 
-        <div
+        {/* <div
           style={{
             background: `${card.style.backgroundColor}`,
             width: "calc(100% - 30px)",
@@ -63,19 +67,20 @@ export const PreviewCard = ({ card }: IProps) => {
             borderBottomLeftRadius: "20px",
             borderBottomRightRadius: "20px",
           }}
-        />
+        /> */}
         <Stack
           spacing={24}
           align={"center"}
           justify={"center"}
           style={{
             width: "100%",
-            background: "white",
+            background: card.style.backgroundColor ? "white" : '',
             padding: "18px",
             marginTop: "20px",
             borderRadius: "20px",
             boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
             zIndex: 2,
+            color: card.style.textColor
           }}
         >
           <img
@@ -84,12 +89,12 @@ export const PreviewCard = ({ card }: IProps) => {
             alt=""
           />
           {card.data.name && (
-            <Title style={{ fontSize: 16 }} order={2}>
+            <Title style={{ fontSize: 20 }} order={2}>
               {card.data.name}
             </Title>
           )}
           {card.data.description && (
-            <Title style={{ fontSize: 12 }} order={4}>
+            <Title style={{ fontSize: 16 }} order={4}>
               {card.data.description}
             </Title>
           )}
@@ -99,7 +104,8 @@ export const PreviewCard = ({ card }: IProps) => {
                 return (
                   <MyLink
                     key={item.id}
-                    backgroundColor={card.style.backgroundColor}
+                    backgroundColor={card.style.buttonColor}
+                    textColor={card.style.textColor}
                     descriptionLink={item.descriptionLink}
                     titleLink={item.titleLink}
                     link={item.link}
@@ -114,9 +120,9 @@ export const PreviewCard = ({ card }: IProps) => {
             width: "170px",
             height: "25px",
             borderRadius: "15px",
-            color: "#00000063",
+            color: card.style.textColor,
             fontSize: 13,
-            marginTop: '25px',
+            marginTop: "25px",
             zIndex: 3,
           }}
           justify={"center"}

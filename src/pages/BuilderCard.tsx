@@ -1,14 +1,13 @@
-import { Flex, Group, Stack, Title, Button, Tabs } from "@mantine/core";
+import { Stack, Button, Tabs } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
 import { Navigate } from "react-router";
 import { PreviewCard } from "../components/builderCard/PreviewCard";
 import { WrapperApp } from "../components/WrapperApp";
-import { BuilderColor } from "../components/builderCard/BuilderColor";
+import { BuilderStyles } from "../components/builderCard/BuilderStyles";
 import { BuilderForm } from "../components/builderCard/BuilderForm";
 import {
-  setCard,
   cardSelector,
   setFetchedCard,
 } from "../store/slices/cardSlices";
@@ -24,8 +23,7 @@ import {
 import { Context } from "../index";
 import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BuilderLink } from "../components/builderCard/BuilderLink";
-import { IconMessageCircle, IconSettings, IconPhoto } from "@tabler/icons";
+import { BuilderLink } from "../components/builderCard/BuilderLink/BuilderLink";
 
 export const BuilderCard = () => {
   const auth = getAuth();
@@ -84,8 +82,8 @@ export const BuilderCard = () => {
           >
             <div
               style={{
-                width: "500px",
-                maxWidth: '100%',
+                width: "800px",
+                // maxWidth: '100%',
                 boxShadow: "rgba(0, 0, 0, 0.15) 0px 3px 15px",
                 borderRadius: "30px",
                 padding: "50px",
@@ -111,14 +109,14 @@ export const BuilderCard = () => {
                   <Tabs.Tab value="links">Links</Tabs.Tab>
                   <Tabs.Tab value="styles">Styles</Tabs.Tab>
                 </Tabs.List>
-                <Tabs.Panel value="mainInfo">
+                <Tabs.Panel style={{ width: '33.33%'}} value="mainInfo">
                   <BuilderForm card={card} />
                 </Tabs.Panel>
                 <Tabs.Panel value="links">
                   <BuilderLink card={card} />
                 </Tabs.Panel>
                 <Tabs.Panel value="styles">
-                  <BuilderColor card={card} />
+                  <BuilderStyles card={card} />
                 </Tabs.Panel>
               </Tabs>
               <Button onClick={handleFormSubmit}>Publish</Button>
