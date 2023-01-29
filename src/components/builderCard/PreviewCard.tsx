@@ -8,7 +8,6 @@ interface IProps {
 
 export const PreviewCard = ({ card }: IProps) => {
   if (!card) return <>loading</>;
-  console.log(card.style)
   return (
     <Stack
       style={{

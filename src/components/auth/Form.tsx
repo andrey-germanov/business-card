@@ -22,7 +22,7 @@ export const Form = ({
     validate: zodResolver(
       z.object({
         email: z.string().email(),
-        password: z.string().min(8, "Minimun 8 characters"),
+        password: z.string().min(8, "Minimum 8 characters"),
       })
     ),
     validateInputOnBlur: true,
