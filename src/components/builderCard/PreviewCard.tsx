@@ -29,6 +29,7 @@ export const PreviewCard = ({ card }: IProps) => {
           margin: 0,
           overflow: "auto",
           backgroundSize: "cover",
+          backgroundPosition: 'center',
           backgroundImage: `url('${card.style.backgroundImage}')`,
           backgroundColor: card.style.backgroundColor,
         }}

@@ -37,6 +37,7 @@ export const Card = () => {
         margin: 0,
         padding: '0 10px',
         backgroundSize: 'cover',
+        backgroundPosition: 'center',
         backgroundImage: `url('${card.style.backgroundImage}')`,
         backgroundColor: card.style.backgroundColor
       }}
