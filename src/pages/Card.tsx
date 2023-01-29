@@ -35,11 +35,11 @@ export const Card = () => {
         height: "100%",
         width: "100%",
         margin: 0,
-        padding: '0 10px',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        padding: "0 10px",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
         backgroundImage: `url('${card.style.backgroundImage}')`,
-        backgroundColor: card.style.backgroundColor
+        backgroundColor: card.style.backgroundColor,
       }}
       align={"center"}
       spacing={0}
@@ -78,7 +78,7 @@ export const Card = () => {
             boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
             zIndex: 2,
             color: card.style.textColor,
-            background: card.style.backgroundColor ? "white" : '',
+            background: card.style.backgroundColor ? "white" : "",
           }}
         >
           <img
@@ -113,16 +113,22 @@ export const Card = () => {
         style={{
           width: "170px",
           height: "25px",
-          borderRadius: '15px',
-          color: card.style.textColor,
+          borderRadius: "15px",
           fontSize: 13,
-          marginTop: '25px',
+          marginTop: "25px",
           zIndex: 3,
         }}
         justify={"center"}
         align={"center"}
       >
-        <a href="https://business-card-lime.vercel.app/" target={'_blank'} rel="noreferrer">Created by @smart link</a>
+        <a
+          style={{ color: card.style.textColor }}
+          href="https://business-card-lime.vercel.app/"
+          target={"_blank"}
+          rel="noreferrer"
+        >
+          Created by @smart link
+        </a>
       </Flex>
     </Stack>
   );
