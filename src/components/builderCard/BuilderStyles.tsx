@@ -105,7 +105,7 @@ export const BuilderStyles = ({ card }: IProps) => {
         <Stack>
           <Text size={12}>Background color</Text>
           <ColorPicker
-            format="rgba"
+            format="hex"
             defaultValue={card.style.backgroundColor}
             onChange={handleChangeBackgroundColor}
           />

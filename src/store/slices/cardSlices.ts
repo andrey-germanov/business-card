@@ -28,7 +28,7 @@ const data = {
 const style = {
   backgroundColor: "#4e68de",
   backgroundImage: '',
-  textColor: "#fff",
+  textColor: "black",
   buttonColor: "#6486e3",
 };
 const initialState: ICardResponse = {
