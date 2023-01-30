@@ -37,7 +37,7 @@ export const FormInput = ({
       placeholder={field}
       rightSection={
         <div
-          style={{ cursor: "pointer", fontSize: 10, opacity: 0.6 }}
+          style={{ cursor: "pointer", fontSize: 12, opacity: 0.6 }}
           onClick={() => setValues({ [field]: "" })}
         >
           x

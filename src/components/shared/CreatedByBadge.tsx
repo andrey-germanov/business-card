@@ -15,6 +15,7 @@ export const CreatedByBadge = ({ textColor }: IProps) => {
         fontSize: 13,
         marginTop: "25px",
         zIndex: 3,
+        filter: 'invert(1)',
       }}
       justify={"center"}
       align={"center"}
