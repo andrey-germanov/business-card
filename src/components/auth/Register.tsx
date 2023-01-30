@@ -7,30 +7,9 @@ import { Context } from "../../index";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { Stack, Input, Text, Group } from "@mantine/core";
+import { initialState } from "../../store/slices/cardSlices";
 
-const starterInfo = {
-  avatar: "",
-  updatedAt: {
-    seconds: 0,
-    nanoseconds: 0,
-  },
-  data: {
-    name: "name",
-    description: "description",
-    fontSizeName: '16px',
-    fontSizeDescription: '12px',
-  },
-  createdAt: {
-    seconds: 0,
-    nanoseconds: 0,
-  },
-  style: {
-    backgroundColor: "#4e68de",
-    textColor: "black",
-    buttonColor: "#6486e3",
-  },
-  links: [],
-};
+const startedInfo = initialState;
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -47,7 +26,7 @@ export const Register = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((res) => {
         addDoc(collection(db, `cards/`), {
-          ...starterInfo,
+          ...startedInfo,
           clientId: res.user.uid,
           nickname,
           createdAt: serverTimestamp(),

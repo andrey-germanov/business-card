@@ -33,7 +33,7 @@ const style = {
   textColor: "black",
   buttonColor: "#6486e3",
 };
-const initialState: ICardResponse = {
+export const initialState: ICardResponse = {
   avatar: "",
   nickname: "",
   updatedAt: updatedAt,
