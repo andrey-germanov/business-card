@@ -17,6 +17,8 @@ const starterInfo = {
   data: {
     name: "name",
     description: "description",
+    fontSizeName: '16px',
+    fontSizeDescription: '12px',
   },
   createdAt: {
     seconds: 0,
