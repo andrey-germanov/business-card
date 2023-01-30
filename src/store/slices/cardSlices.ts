@@ -24,6 +24,8 @@ const createdAt = {
 const data = {
   name: "name",
   description: "description",
+  fontSizeName: '16px',
+  fontSizeDescription: '12px',
 };
 const style = {
   backgroundColor: "#4e68de",
@@ -51,6 +53,8 @@ const cardSlice = createSlice({
       state.avatar = action.payload.avatar;
       state.data.name = action.payload.data.name;
       state.data.description = action.payload.data.description;
+      state.data.fontSizeName = action.payload.data.fontSizeName;
+      state.data.fontSizeDescription = action.payload.data.fontSizeDescription;
       state.links = action.payload.links;
       state.style.backgroundColor = action.payload.style.backgroundColor;
       state.style.backgroundImage = action.payload.style.backgroundImage;
@@ -65,18 +69,6 @@ const cardSlice = createSlice({
     setAvatar(state, action) {
       state.avatar = action.payload.avatar;
     },
-    setStyles(state, action) {
-      state.style.backgroundColor = action.payload.backgroundColor;
-    },
-    setButtonColor(state, action) {
-      state.style.buttonColor = action.payload.buttonColor;
-    },
-    setBackgroundImage(state, action) {
-      state.style.backgroundImage = action.payload;
-    },
-    setTextColor(state, action){
-      state.style.textColor = action.payload.textColor;
-    },
     setLinks(state, action) {
       state.links = [...state.links, ...action.payload];
     },
@@ -89,23 +81,40 @@ const cardSlice = createSlice({
     deleteLink(state, action) {
       state.links = state.links.filter((item) => action.payload !== item.id);
     },
+    setBackgroundColor(state, action) {
+      state.style.backgroundColor = action.payload.backgroundColor;
+    },
+    setButtonColor(state, action) {
+      state.style.buttonColor = action.payload.buttonColor;
+    },
+    setBackgroundImage(state, action) {
+      state.style.backgroundImage = action.payload;
+    },
+    setTextColor(state, action){
+      state.style.textColor = action.payload.textColor;
+    },
+    setFontSizeBio(state, action){
+      state.data = action.payload
+    }
   },
 });
 
 export const {
   setFetchedCard,
   setCard,
-  setStyles,
-  setLinks,
   setAvatar,
+  setLinks,
   updateLink,
   deleteLink,
+  setBackgroundColor,
   setBackgroundImage,
   setButtonColor,
-  setTextColor
+  setTextColor,
+  setFontSizeBio
 } = cardSlice.actions;
 
 export const cardSelector = (state: RootState) => state.card;
 export const linksSelector = (state: RootState) => state.card.links;
+export const fontSizeBioSelector = (state: RootState) => state.card.data;
 
 export default cardSlice.reducer;

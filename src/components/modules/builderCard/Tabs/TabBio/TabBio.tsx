@@ -1,12 +1,17 @@
-import { Stack } from "@mantine/core";
+import { Flex, Group, Stack } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { z } from "zod";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { setCard } from "../../../../../store/slices/cardSlices";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setCard,
+  fontSizeBioSelector,
+  setFontSizeBio,
+} from "../../../../../store/slices/cardSlices";
 import { UploadAvatar } from "./shared/UploadAvatar";
 import { ICardResponse } from "../../../../../types/types";
 import { FormInput } from "../../../../shared/FormInput";
+import { EditStylesText } from "./shared/EditStylesText";
 
 const fields = ["name", "description"];
 
@@ -14,8 +19,10 @@ interface IProps {
   card: ICardResponse;
 }
 
-export const BuilderForm = ({ card }: IProps) => {
+export const TabBio = ({ card }: IProps) => {
   const dispatch = useDispatch();
+  const { fontSizeDescription, fontSizeName } =
+    useSelector(fontSizeBioSelector);
 
   const form = useForm({
     validate: zodResolver(
@@ -45,21 +52,45 @@ export const BuilderForm = ({ card }: IProps) => {
     dispatch(setCard(newData));
   }, [form.values]);
 
+  const editableStylesName = (e: string, field: string) => {
+    const newData = {
+      ...card.data,
+      [field]: e
+    }
+    dispatch(setFontSizeBio(newData))
+  };
+
+  const fontSizeObj: any = {
+    name: fontSizeName,
+    description: fontSizeDescription,
+  };
+
+  const nameFieldObj: any = {
+    name: 'fontSizeName',
+    description: 'fontSizeDescription',
+  };
   const renderFields = (fields: string[]) => {
     return fields.map((field, key) => (
-      <FormInput
-        key={key}
-        field={field}
-        {...form.getInputProps(field)}
-        setValues={form.setValues}
-      />
+      <Flex key={key} justify={"space-between"} align={"end"}>
+        <FormInput
+          field={field}
+          {...form.getInputProps(field)}
+          setValues={form.setValues}
+          width="60%"
+        />
+        <EditStylesText
+          field={nameFieldObj[field]}
+          fontSize={fontSizeObj[field]}
+          editableStylesName={editableStylesName}
+        />
+      </Flex>
     ));
   };
   return (
     <form>
       <Stack spacing={24}>
         <UploadAvatar />
-        {renderFields(fields)}
+        <Stack spacing={24}>{renderFields(fields)}</Stack>
       </Stack>
     </form>
   );

@@ -8,7 +8,7 @@ import { ICardResponse, Link } from "../types/types";
 import { MyLink } from "../components/shared/MyLink";
 import { CreatedByBadge } from "../components/shared/CreatedByBadge";
 
-export const Card = () => {
+export const CardPage = () => {
   const [card, setCard] = useState<ICardResponse | null>(null);
   const [notFound, setNotFound] = useState(false);
   const { nickname } = useParams();
@@ -69,9 +69,13 @@ export const Card = () => {
             src={card.avatar}
             alt=""
           />
-          {card.data.name && <Title order={2}>{card.data.name}</Title>}
+          {card.data.name && (
+            <Title size={card.data.fontSizeName}>{card.data.name}</Title>
+          )}
           {card.data.description && (
-            <Title order={4}>{card.data.description}</Title>
+            <Title size={card.data.fontSizeDescription} order={4}>
+              {card.data.description}
+            </Title>
           )}
           <Stack style={{ width: "100%" }}>
             {!!card.links &&

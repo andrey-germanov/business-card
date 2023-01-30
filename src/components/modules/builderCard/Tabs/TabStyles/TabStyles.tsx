@@ -10,7 +10,7 @@ import {
 import {
   setBackgroundImage,
   setButtonColor,
-  setStyles,
+  setBackgroundColor,
   setTextColor,
 } from "../../../../../store/slices/cardSlices";
 import { useDispatch } from "react-redux";
@@ -27,7 +27,7 @@ export const TabStyles = ({ card }: IProps) => {
   const handleChangeBackgroundColor = (e: string) => {
     const data = { backgroundColor: e };
     dispatch(setBackgroundImage(""));
-    dispatch(setStyles(data));
+    dispatch(setBackgroundColor(data));
   };
 
   const handleChangeBackgroundButtonColor = (e: string) => {
@@ -44,7 +44,7 @@ export const TabStyles = ({ card }: IProps) => {
   const handleChangeBackgroundImage = (e: string) => {
     const data = backgrounds.filter((item) => item.id === Number(e))[0].path;
 
-    dispatch(setStyles({ backgroundColor: "" }));
+    dispatch(setBackgroundColor({ backgroundColor: "" }));
     dispatch(setBackgroundImage(data));
   };
 

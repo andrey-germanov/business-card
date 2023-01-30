@@ -6,6 +6,8 @@ export type UpdatedAt = {
 export interface Data {
   name: string;
   description: string;
+  fontSizeName: string;
+  fontSizeDescription: string;
 }
 
 export interface CreatedAt {

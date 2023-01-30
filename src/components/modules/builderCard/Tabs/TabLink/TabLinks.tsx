@@ -7,7 +7,7 @@ import { BuilderLinksModal } from "./BuilderLinksModal";
 interface IProps {
     card: ICardResponse;
 }
-export const BuilderLink = ({card}: IProps) => {
+export const TabLink = ({card}: IProps) => {
   return (
     <Flex
       justify={"center"}

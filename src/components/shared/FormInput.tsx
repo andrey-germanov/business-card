@@ -15,6 +15,7 @@ interface IProps {
   onBlur?: () => void;
   onFocus?: () => void;
   setValues: SetValues<any>;
+  width?: string;
 }
 
 export const FormInput = ({
@@ -25,6 +26,7 @@ export const FormInput = ({
   onBlur,
   onFocus,
   setValues,
+  width = '100%'
 }: IProps) => {
   return (
     <TextInput
@@ -44,7 +46,7 @@ export const FormInput = ({
         </div>
       }
       style={{
-        width: "100%",
+        width,
       }}
     />
   );

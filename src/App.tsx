@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { BuilderCard } from "./pages/BuilderCard";
 import { Home } from "./pages/Home";
 import { LoginPage } from "./pages/LoginPage";
 import { RegistrationPage } from "./pages/RegistrationPage";
-import { Card } from "./pages/Card";
+import { BuilderCardPage } from "./pages/BuilderCardPage";
+import { CardPage } from "./pages/CardPage";
 
 const App = () => {
   return (
@@ -15,8 +15,8 @@ const App = () => {
             <Route path={`/`} element={<Home />} />
             <Route path={`/login`} element={<LoginPage />} />
             <Route path={`/register`} element={<RegistrationPage />} />
-            <Route path={`/builder-card`} element={<BuilderCard />} />
-            <Route path={`/:nickname`} element={<Card />} />
+            <Route path={`/builder-card`} element={<BuilderCardPage />} />
+            <Route path={`/:nickname`} element={<CardPage />} />
           </Routes>
       </BrowserRouter>
     </div>

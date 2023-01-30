@@ -92,6 +92,7 @@ export default {
           flexDirection: 'column',
           gap: '20px'
         } as CSSObject;
+        
         return {
           tab,
           tabIcon,

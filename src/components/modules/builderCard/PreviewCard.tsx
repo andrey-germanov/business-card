@@ -1,4 +1,4 @@
-import { Flex, Stack, Title } from "@mantine/core";
+import { Flex, Stack, Text, Title } from "@mantine/core";
 import { ICardResponse, Link } from "../../../types/types";
 import { MyLink } from "../../shared/MyLink";
 import { CreatedByBadge } from "../../shared/CreatedByBadge";
@@ -70,12 +70,12 @@ export const PreviewCard = ({ card }: IProps) => {
             />
           )}
           {card.data.name && (
-            <Title style={{ fontSize: 20 }} order={2}>
+            <Title size={card.data.fontSizeName}>
               {card.data.name}
             </Title>
           )}
           {card.data.description && (
-            <Title style={{ fontSize: 16 }} order={4}>
+            <Title size={card.data.fontSizeDescription} order={4}>
               {card.data.description}
             </Title>
           )}
