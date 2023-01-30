@@ -1,6 +1,6 @@
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
-import { Form } from "./Form";
+import { RegisterForm } from "./RegisterForm";
 import { useNavigate } from "react-router";
 import { useContext } from "react";
 import { Context } from "../../index";
@@ -78,7 +78,7 @@ export const Register = () => {
           <Text>this nickname already exists</Text>
         )}
       </Group>
-      <Form
+      <RegisterForm
         disableSignUpButton={disableSignUpButton}
         error={error}
         title={"sign up"}

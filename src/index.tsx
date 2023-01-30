@@ -11,6 +11,7 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from 'firebase/storage';
 import { MantineProvider } from "@mantine/core";
 import theme from './light.theme'
+import { NotificationsProvider } from "@mantine/notifications";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -30,7 +31,9 @@ root.render(
   <Provider store={store}>
     <Context.Provider value={{ db }}>
       <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
-        <App />
+        <NotificationsProvider>
+          <App />
+        </NotificationsProvider>
       </MantineProvider>
     </Context.Provider>
   </Provider>

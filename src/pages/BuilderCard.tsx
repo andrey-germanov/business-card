@@ -3,14 +3,11 @@ import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
 import { Navigate } from "react-router";
-import { PreviewCard } from "../components/builderCard/PreviewCard";
-import { WrapperApp } from "../components/WrapperApp";
-import { BuilderStyles } from "../components/builderCard/BuilderStyles";
-import { BuilderForm } from "../components/builderCard/BuilderForm";
-import {
-  cardSelector,
-  setFetchedCard,
-} from "../store/slices/cardSlices";
+import { PreviewCard } from "../components/modules/builderCard/PreviewCard";
+import { AppLayout } from "../components/AppLayout";
+import { TabStyles } from "../components/modules/builderCard/Tabs/TabStyles/TabStyles";
+import { BuilderForm } from "../components/modules/builderCard/Tabs/TabBio/TabBio";
+import { cardSelector, setFetchedCard } from "../store/slices/cardSlices";
 import {
   collection,
   doc,
@@ -23,17 +20,18 @@ import {
 import { Context } from "../index";
 import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BuilderLink } from "../components/builderCard/BuilderLink/BuilderLink";
+import { BuilderLink } from "../components/modules/builderCard/Tabs/TabLink/BuilderLink";
+import { showNotification } from "@mantine/notifications";
 
 export const BuilderCard = () => {
+  const [fetchLoading, setFetchLoading] = useState(false);
+  const [updateLoading, setUpdateLoading] = useState(false);
+  const card = useSelector(cardSelector);
+  const dispatch = useDispatch();
+
   const auth = getAuth();
   const [user, loading] = useAuthState(auth);
   const { db } = useContext(Context);
-
-  const [fetchLoading, setFetchLoading] = useState(false);
-  const card = useSelector(cardSelector);
-
-  const dispatch = useDispatch();
 
   const fetchCard = async () => {
     setFetchLoading(true);
@@ -51,6 +49,7 @@ export const BuilderCard = () => {
   const handleFormSubmit = async () => {
     if (!user?.uid) return;
     try {
+      setUpdateLoading(true);
       const userRef = collection(db, "cards");
 
       const q = query(userRef, where("clientId", "==", user.uid));
@@ -62,14 +61,24 @@ export const BuilderCard = () => {
         style: { ...card.style },
         links: card.links,
         updatedAt: serverTimestamp(),
+      }).then(() => {
+        setUpdateLoading(false);
+        showNotification({
+          title: "Yeah!",
+          message: "Successfully updated",
+        });
       });
     } catch (e) {
-      console.error("Error adding document: ", e);
+      showNotification({
+        title: "Error adding document",
+        message: `${e}`,
+        color: "red",
+      });
     }
   };
   if (!user && !loading) return <Navigate to={"/login"} replace />;
   return (
-    <WrapperApp>
+    <AppLayout>
       <Stack>
         {fetchLoading ? (
           "loading"
@@ -80,6 +89,7 @@ export const BuilderCard = () => {
               gap: "50px",
             }}
           >
+            <PreviewCard card={card} />
             <div
               style={{
                 width: "800px",
@@ -87,9 +97,10 @@ export const BuilderCard = () => {
                 boxShadow: "rgba(0, 0, 0, 0.15) 0px 3px 15px",
                 borderRadius: "30px",
                 padding: "50px",
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '50px',
+                display: "flex",
+                flexDirection: "column",
+                gap: "50px",
+                position: "relative",
               }}
             >
               {card.nickname && (
@@ -103,28 +114,33 @@ export const BuilderCard = () => {
                   link to your profile
                 </a>
               )}
-              <Tabs defaultValue={'mainInfo'}>
+              <Tabs defaultValue={"mainInfo"}>
                 <Tabs.List>
                   <Tabs.Tab value="mainInfo">Bio</Tabs.Tab>
                   <Tabs.Tab value="links">Links</Tabs.Tab>
                   <Tabs.Tab value="styles">Styles</Tabs.Tab>
                 </Tabs.List>
-                <Tabs.Panel style={{ width: '33.33%'}} value="mainInfo">
+                <Tabs.Panel style={{ width: "33.33%" }} value="mainInfo">
                   <BuilderForm card={card} />
                 </Tabs.Panel>
                 <Tabs.Panel value="links">
                   <BuilderLink card={card} />
                 </Tabs.Panel>
                 <Tabs.Panel value="styles">
-                  <BuilderStyles card={card} />
+                  <TabStyles card={card} />
                 </Tabs.Panel>
               </Tabs>
-              <Button onClick={handleFormSubmit}>Publish</Button>
+              <Button
+                style={{ position: "absolute", bottom: "32px", right: "32px" }}
+                disabled={updateLoading}
+                onClick={handleFormSubmit}
+              >
+                Publish
+              </Button>
             </div>
-            <PreviewCard card={card} />
           </div>
         )}
       </Stack>
-    </WrapperApp>
+    </AppLayout>
   );
 };

@@ -1,7 +1,7 @@
-import { Button, Flex, Stack } from "@mantine/core";
+import { Button, Flex } from "@mantine/core";
 import React from "react";
-import { EditLinkModal } from "../builderCard/BuilderLink/EditLinkModal";
-import { DeleteLinkModal } from "../builderCard/BuilderLink/DeleteLinkModal";
+import { EditLinkModal } from "../modules/builderCard/Tabs/TabLink/EditLinkModal";
+import { DeleteLinkModal } from "../modules/builderCard/Tabs/TabLink/DeleteLinkModal";
 
 type IProps = {
   backgroundColor?: string;
@@ -35,7 +35,7 @@ export const MyLink = ({
           backgroundColor: backgroundColor,
           color: textColor,
           height: "auto",
-          borderRadius: "20px",
+          borderRadius: !editableLink ? "20px" : '',
           textAlign: "center",
           whiteSpace: "normal",
           width: "100%",

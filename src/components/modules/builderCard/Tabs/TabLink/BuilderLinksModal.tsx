@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { Modal, Stack, TextInput, Group, Button } from "@mantine/core";
+import { Modal, Stack, Button } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { z } from "zod";
 import { useDispatch } from "react-redux";
-import { setLinks } from "../../../store/slices/cardSlices";
-import { Link } from "../../../types/types";
-import { FormInput } from '../../shared/FormInput';
-import { useEffect } from 'react';
+import { setLinks } from "../../../../../store/slices/cardSlices";
+import { Link } from "../../../../../types/types";
+import { FormInput } from '../../../../shared/FormInput';
 
 export const BuilderLinksModal = () => {
   const [opened, setOpened] = useState(false);

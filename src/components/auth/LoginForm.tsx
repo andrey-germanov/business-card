@@ -7,16 +7,12 @@ type FormData = {
   password: string;
 };
 interface IFormProps {
-  title: string;
   handleClick: (email: string, password: string) => void;
   error: string;
-  disableSignUpButton?: boolean;
 }
-export const Form = ({
-  title,
+export const LoginForm = ({
   handleClick,
   error,
-  disableSignUpButton,
 }: IFormProps) => {
   const form = useForm({
     validate: zodResolver(
@@ -51,8 +47,8 @@ export const Form = ({
             {...form.getInputProps("password")}
             placeholder="Password"
           />
-          <Button type={"submit"} disabled={disableSignUpButton}>
-            {title}
+          <Button type={"submit"} disabled={!!error.length}>
+            Sign in
           </Button>
         </Stack>
       </form>

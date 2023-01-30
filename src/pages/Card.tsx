@@ -1,4 +1,4 @@
-import { Button, Flex, Stack, Loader, Title, Text } from "@mantine/core";
+import { Stack, Loader, Title } from "@mantine/core";
 import { useParams } from "react-router";
 import { Context } from "../index";
 import { useContext, useState, useEffect } from "react";
@@ -6,6 +6,7 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import { collection } from "firebase/firestore";
 import { ICardResponse, Link } from "../types/types";
 import { MyLink } from "../components/shared/MyLink";
+import { CreatedByBadge } from "../components/shared/CreatedByBadge";
 
 export const Card = () => {
   const [card, setCard] = useState<ICardResponse | null>(null);
@@ -44,24 +45,6 @@ export const Card = () => {
       align={"center"}
       spacing={0}
     >
-      {/* <div
-        style={{
-          background: `${card.style.backgroundColor}`,
-          width: "100%",
-          height: "40%",
-          position: "absolute",
-        }}
-      />
-      <div
-        style={{
-          background: `#fff`,
-          position: "absolute",
-          bottom: "15px",
-          width: "100%",
-          height: "60%",
-        }}
-      /> */}
-
       {loadingCollection ? (
         <Loader></Loader>
       ) : (
@@ -108,28 +91,7 @@ export const Card = () => {
           </Stack>
         </Stack>
       )}
-
-      <Flex
-        style={{
-          width: "170px",
-          height: "25px",
-          borderRadius: "15px",
-          fontSize: 13,
-          marginTop: "25px",
-          zIndex: 3,
-        }}
-        justify={"center"}
-        align={"center"}
-      >
-        <a
-          style={{ color: card.style.textColor }}
-          href="https://business-card-lime.vercel.app/"
-          target={"_blank"}
-          rel="noreferrer"
-        >
-          Created by @smart link
-        </a>
-      </Flex>
+      <CreatedByBadge textColor={card.style.textColor} />
     </Stack>
   );
 };

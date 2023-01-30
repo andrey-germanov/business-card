@@ -1,16 +1,15 @@
-import React, { SetStateAction, useState } from "react";
-import { Modal, Stack, TextInput, Group, Button } from "@mantine/core";
+import React, { useState } from "react";
+import { Modal, Stack, Button } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { z } from "zod";
 import { useDispatch, useSelector } from "react-redux";
 import {
   linksSelector,
-  setLinks,
   updateLink,
-} from "../../../store/slices/cardSlices";
-import { Link } from "../../../types/types";
+} from "../../../../../store/slices/cardSlices";
+import { Link } from "../../../../../types/types";
 import { useEffect } from "react";
-import { FormInput } from "../../shared/FormInput";
+import { FormInput } from "../../../../shared/FormInput";
 
 type IProps = {
   id: number;
@@ -72,15 +71,34 @@ export const EditLinkModal = ({ id }: IProps) => {
                 padding: 24,
               }}
             >
-              <FormInput field="Title link" {...form.getInputProps('titleLink')} setValues={form.setValues}/>
-              <FormInput field="Description link" {...form.getInputProps('descriptionLink')} setValues={form.setValues}/>
-              <FormInput field="Link" {...form.getInputProps('link')} setValues={form.setValues}/>
-              <Button type={"submit"}>Edit</Button>
+              <FormInput
+                field="Title link"
+                {...form.getInputProps("titleLink")}
+                setValues={form.setValues}
+              />
+              <FormInput
+                field="Description link"
+                {...form.getInputProps("descriptionLink")}
+                setValues={form.setValues}
+              />
+              <FormInput
+                field="Link"
+                {...form.getInputProps("link")}
+                setValues={form.setValues}
+              />
+              <Button style={{ alignSelf: "end" }} type={"submit"}>
+                Edit
+              </Button>
             </Stack>
           </Stack>
         </form>
       </Modal>
-      <div style={{ fontSize: 12 }} onClick={(e) => handleLinkEdit(e)}>Edit </div>
+      <div
+        style={{ fontSize: 12, cursor: "pointer" }}
+        onClick={(e) => handleLinkEdit(e)}
+      >
+        Edit{" "}
+      </div>
     </>
   );
 };

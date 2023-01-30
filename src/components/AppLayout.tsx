@@ -3,13 +3,13 @@ import { Header, Text, Group, Button, Badge, Flex, Stack } from "@mantine/core";
 import { signOut, getAuth } from "firebase/auth";
 import { useNavigate } from "react-router";
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
-import { Logo } from "./Logo";
+import { Logo } from "./shared/Logo";
 
 interface IWrapperApp {
   children: React.ReactNode;
 }
 
-export function WrapperApp({ children }: IWrapperApp) {
+export function AppLayout({ children }: IWrapperApp) {
   const auth = getAuth();
   const [user, loading, error] = useAuthState(auth);
   const [signOut] = useSignOut(auth);

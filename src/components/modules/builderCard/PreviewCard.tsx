@@ -1,6 +1,7 @@
 import { Flex, Stack, Title } from "@mantine/core";
-import { ICardResponse, Link } from "../../types/types";
-import { MyLink } from "../shared/MyLink";
+import { ICardResponse, Link } from "../../../types/types";
+import { MyLink } from "../../shared/MyLink";
+import { CreatedByBadge } from "../../shared/CreatedByBadge";
 
 interface IProps {
   card: ICardResponse;
@@ -29,7 +30,7 @@ export const PreviewCard = ({ card }: IProps) => {
           margin: 0,
           overflow: "auto",
           backgroundSize: "cover",
-          backgroundPosition: 'center',
+          backgroundPosition: "center",
           backgroundImage: `url('${card.style.backgroundImage}')`,
           backgroundColor: card.style.backgroundColor,
         }}
@@ -46,28 +47,6 @@ export const PreviewCard = ({ card }: IProps) => {
             zIndex: 1,
           }}
         ></div>
-
-        {/* <div
-          style={{
-            background: `${card.style.backgroundColor}`,
-            width: "calc(100% - 30px)",
-            height: "40%",
-            position: "absolute",
-            borderTopLeftRadius: "20px",
-            borderTopRightRadius: "20px",
-          }}
-        />
-        <div
-          style={{
-            background: `#fff`,
-            position: "absolute",
-            bottom: "15px",
-            width: "calc(100% - 30px)",
-            height: "60%",
-            borderBottomLeftRadius: "20px",
-            borderBottomRightRadius: "20px",
-          }}
-        /> */}
         <Stack
           spacing={24}
           align={"center"}
@@ -83,11 +62,13 @@ export const PreviewCard = ({ card }: IProps) => {
             color: card.style.textColor,
           }}
         >
-          <img
-            style={{ width: "150px", borderRadius: "50%" }}
-            src={card.avatar}
-            alt=""
-          />
+          {card.avatar && (
+            <img
+              style={{ width: "150px", height: "150px", borderRadius: "50%" }}
+              src={card.avatar}
+              alt=""
+            />
+          )}
           {card.data.name && (
             <Title style={{ fontSize: 20 }} order={2}>
               {card.data.name}
@@ -115,29 +96,7 @@ export const PreviewCard = ({ card }: IProps) => {
               })}
           </Stack>
         </Stack>
-        <Flex
-          style={{
-            width: "170px",
-            height: "25px",
-            borderRadius: "15px",
-            fontSize: 13,
-            marginTop: "25px",
-            zIndex: 3,
-          }}
-          justify={"center"}
-          align={"center"}
-        >
-          <a
-            style={{
-              color: card.style.textColor,
-            }}
-            href="https://business-card-lime.vercel.app/"
-            target={"_blank"}
-            rel="noreferrer"
-          >
-            Created by @smart link
-          </a>
-        </Flex>
+        <CreatedByBadge textColor={card.style.textColor} />
       </Stack>
     </Stack>
   );

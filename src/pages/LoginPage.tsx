@@ -1,31 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Login } from "../components/auth/Login";
-import { Flex, Stack, Title, Button, Group } from "@mantine/core";
+import { Title, Group } from "@mantine/core";
+import { SignLayout } from "../components/auth/shared/SignLayout";
 
 export const LoginPage = () => {
   return (
-    <Flex direction={"column"} justify={"center"} align={"center"}>
-      <Stack
-        style={{
-          maxWidth: "525px",
-          width: "100%",
-          backgroundColor: "#fff",
-          margin: "32px",
-          padding: "32px",
-          boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-        }}
-        spacing={32}
-      >
-        <Title align="center" color={"#000000a8"} order={1}>
-          Login
-        </Title>
-        <Login />
-        <Group spacing={10}>
-          Or
-          <Link to={"/register"}>register</Link>
-        </Group>
-      </Stack>
-    </Flex>
+    <SignLayout>
+      <Title align="center" color={"#000000a8"} order={1}>
+        Login
+      </Title>
+      <Login />
+      <Group spacing={10}>
+        Or
+        <Link to={"/register"}>register</Link>
+      </Group>
+    </SignLayout>
   );
 };

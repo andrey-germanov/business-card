@@ -7,12 +7,12 @@ import {
   Flex,
   Progress,
 } from "@mantine/core";
-import { storage } from "../..";
+import { storage } from "../../../../../..";
 import { useSelector, useDispatch } from "react-redux";
 import {
   cardSelector,
   setAvatar,
-} from "../../store/slices/cardSlices";
+} from "../../../../../../store/slices/cardSlices";
 import { Stack } from "@mantine/core";
 
 export const UploadAvatar = () => {

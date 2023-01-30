@@ -1,13 +1,10 @@
 import { Link } from "react-router-dom";
-import { WrapperApp } from "./WrapperApp";
-import { Flex } from '@mantine/core';
-import { getAuth } from 'firebase/auth';
+import { AppLayout } from "../components/AppLayout";
+import { Flex } from "@mantine/core";
 
-export const MainScreen = () => {
-  const auth = getAuth();
-
+export const Home = () => {
   return (
-    <WrapperApp>
+    <AppLayout>
       <div
         style={{
           display: "flex",
@@ -17,8 +14,8 @@ export const MainScreen = () => {
       >
         <h1>Welcome</h1>
         <Flex
-          justify={'center'}
-          align={'center'}
+          justify={"center"}
+          align={"center"}
           style={{
             borderRadius: "20px",
             background: "#228be6",
@@ -36,6 +33,6 @@ export const MainScreen = () => {
           </Link>
         </Flex>
       </div>
-    </WrapperApp>
+    </AppLayout>
   );
 };

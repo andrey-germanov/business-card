@@ -33,6 +33,7 @@ export default {
       styles: (theme: MantineTheme) => {
         const tab = {
           ...theme.fn.focusStyles(),
+          width: '33.33%',
           backgroundColor:
             theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.white,
           color:
