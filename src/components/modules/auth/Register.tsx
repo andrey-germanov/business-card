@@ -3,11 +3,11 @@ import React, { useState } from "react";
 import { RegisterForm } from "./RegisterForm";
 import { useNavigate } from "react-router";
 import { useContext } from "react";
-import { Context } from "../../index";
+import { Context } from "../../../index";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { Stack, Input, Text, Group } from "@mantine/core";
-import { initialState } from "../../store/slices/cardSlices";
+import { initialState } from "../../../store/slices/cardSlices";
 
 const startedInfo = initialState;
 

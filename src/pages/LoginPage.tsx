@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Login } from "../components/auth/Login";
+import { Login } from "../components/modules/auth/Login";
 import { Title, Group } from "@mantine/core";
-import { SignLayout } from "../components/auth/shared/SignLayout";
+import { SignLayout } from "../components/modules/auth/shared/SignLayout";
 
 export const LoginPage = () => {
   return (

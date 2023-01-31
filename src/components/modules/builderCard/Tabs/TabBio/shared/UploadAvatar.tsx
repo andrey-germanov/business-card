@@ -1,12 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import {
-  FileButton,
-  Button,
-  Group,
-  Flex,
-  Progress,
-} from "@mantine/core";
+import { FileButton, Button, Group, Flex, Progress } from "@mantine/core";
 import { storage } from "../../../../../..";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -65,34 +59,35 @@ export const UploadAvatar = () => {
     <>
       <Stack>
         <div>
-        <Progress value={progresspercent} />
-        <Group>
-          <FileButton
-            resetRef={resetRef}
-            onChange={setFile}
-            accept="image/png,image/jpeg"
-          >
-            {(props) => (
-              <Flex
-                {...props}
-                justify={"center"}
-                align={"center"}
-                style={{
-                  width: 100,
-                  height: 100,
-                  borderRadius: "50%",
-                  border: "1px solid black",
-                  fontSize: 12,
-                }}
-              >
-                upload avatar
-              </Flex>
-            )}
-          </FileButton>
-          <Button disabled={!card.avatar} color="red" onClick={clearFile}>
-            Reset
-          </Button>
-        </Group>
+          <Progress value={progresspercent} />
+          <Group position="center" style={{ marginTop: '20px' }}>
+            <FileButton
+              resetRef={resetRef}
+              onChange={setFile}
+              accept="image/png,image/jpeg"
+            >
+              {(props) => (
+                <Flex
+                  {...props}
+                  justify={"center"}
+                  align={"center"}
+                  style={{
+                    width: 150,
+                    height: 150,
+                    borderRadius: "50%",
+                    border: "1px solid black",
+                    fontSize: 12,
+                    cursor: 'pointer'
+                  }}
+                >
+                  upload avatar
+                </Flex>
+              )}
+            </FileButton>
+            <Button disabled={!card.avatar} color="red" onClick={clearFile}>
+              Reset
+            </Button>
+          </Group>
         </div>
       </Stack>
     </>
