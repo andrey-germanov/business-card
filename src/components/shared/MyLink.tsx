@@ -55,6 +55,7 @@ export const MyLink = ({
         <div
           style={{
             fontSize: "12px",
+            lineHeight: '16px',
             opacity: 0.7,
           }}
         >
