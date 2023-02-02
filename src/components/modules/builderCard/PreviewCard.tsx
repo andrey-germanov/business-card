@@ -64,7 +64,7 @@ export const PreviewCard = ({ card }: IProps) => {
         >
           {card.avatar && (
             <img
-              style={{ width: "150px", height: "150px", borderRadius: "50%" }}
+              style={{ width: "150px", height: "150px", objectFit: 'cover', borderRadius: "50%" }}
               src={card.avatar}
               alt=""
             />
