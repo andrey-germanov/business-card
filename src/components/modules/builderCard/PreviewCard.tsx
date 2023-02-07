@@ -2,6 +2,7 @@ import { Flex, Stack, Text, Title } from "@mantine/core";
 import { ICardResponse, Link } from "../../../types/types";
 import { MyLink } from "../../shared/MyLink";
 import { CreatedByBadge } from "../../shared/CreatedByBadge";
+import { useId } from "react";
 
 interface IProps {
   card: ICardResponse;
