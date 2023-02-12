@@ -12,6 +12,7 @@ import { UploadAvatar } from "./shared/UploadAvatar";
 import { ICardResponse } from "../../../../../types/types";
 import { FormInput } from "../../../../shared/FormInput";
 import { EditStylesText } from "./shared/EditStylesText";
+import { useStyles } from "./useStyles";
 
 const fields = ["name", "description"];
 
@@ -23,6 +24,7 @@ export const TabBio = ({ card }: IProps) => {
   const dispatch = useDispatch();
   const { fontSizeDescription, fontSizeName } =
     useSelector(fontSizeBioSelector);
+  const { classes } = useStyles();
 
   const form = useForm({
     validate: zodResolver(
@@ -71,12 +73,12 @@ export const TabBio = ({ card }: IProps) => {
   };
   const renderFields = (fields: string[]) => {
     return fields.map((field, key) => (
-      <Flex key={key} justify={"space-between"} align={"end"}>
+      <Flex className={classes.editInput} key={key} justify={"space-between"}>
         <FormInput
           field={field}
           {...form.getInputProps(field)}
           setValues={form.setValues}
-          width="60%"
+          width="100%"
         />
         <EditStylesText
           field={nameFieldObj[field]}

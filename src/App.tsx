@@ -6,6 +6,7 @@ import { LoginPage } from "./pages/LoginPage";
 import { RegistrationPage } from "./pages/RegistrationPage";
 import { BuilderCardPage } from "./pages/BuilderCardPage";
 import { CardPage } from "./pages/CardPage";
+import { LogoutPage } from "./pages/LogoutPage";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
           <Routes>
             <Route path={`/`} element={<Home />} />
             <Route path={`/login`} element={<LoginPage />} />
+            <Route path={`/logout`} element={<LogoutPage />} />
             <Route path={`/register`} element={<RegistrationPage />} />
             <Route path={`/builder-card`} element={<BuilderCardPage />} />
             <Route path={`/:nickname`} element={<CardPage />} />

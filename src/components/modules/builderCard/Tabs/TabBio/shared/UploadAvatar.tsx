@@ -8,12 +8,35 @@ import {
   setAvatar,
 } from "../../../../../../store/slices/cardSlices";
 import { Stack } from "@mantine/core";
+import { createStyles } from '@mantine/styles';
+
+
+
+
+export const useStyles = createStyles((theme) => ({
+  uploadAvatar: {
+    width: 150,
+    height: 150,
+    borderRadius: "50%",
+    border: "1px solid black",
+    fontSize: 12,
+    cursor: 'pointer',
+    [`@media (max-width: 700px)`]: {
+
+    width: 100,
+    height: 100,
+    },
+  }
+}));
+
+
 
 export const UploadAvatar = () => {
   const [file, setFile] = useState<File | null>(null);
   const resetRef = useRef<() => void>(null);
   const card = useSelector(cardSelector);
   const dispatch = useDispatch();
+  const { classes } = useStyles();
 
   const clearFile = () => {
     setFile(null);
@@ -71,14 +94,7 @@ export const UploadAvatar = () => {
                   {...props}
                   justify={"center"}
                   align={"center"}
-                  style={{
-                    width: 150,
-                    height: 150,
-                    borderRadius: "50%",
-                    border: "1px solid black",
-                    fontSize: 12,
-                    cursor: 'pointer'
-                  }}
+                  className={classes.uploadAvatar}
                 >
                   upload avatar
                 </Flex>

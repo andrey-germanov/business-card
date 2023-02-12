@@ -1,11 +1,6 @@
 import React from "react";
 import { TextInput } from "@mantine/core";
-import { UseFormReturnType } from "@mantine/form";
 import { SetValues } from "@mantine/form/lib/types";
-
-type Values = {
-  field: string;
-};
 
 interface IProps {
   field: string;
@@ -16,6 +11,7 @@ interface IProps {
   onFocus?: () => void;
   setValues: SetValues<any>;
   width?: string;
+  maxWidth?: string;
 }
 
 export const FormInput = ({
@@ -26,7 +22,8 @@ export const FormInput = ({
   onBlur,
   onFocus,
   setValues,
-  width = '100%'
+  width = '100%',
+  maxWidth,
 }: IProps) => {
   return (
     <TextInput
@@ -47,6 +44,7 @@ export const FormInput = ({
       }
       style={{
         width,
+        maxWidth
       }}
     />
   );

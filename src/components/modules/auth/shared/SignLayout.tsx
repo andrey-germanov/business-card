@@ -11,9 +11,9 @@ export const SignLayout = ({ children }: IProps) => {
       <Stack
         style={{
           maxWidth: "525px",
-          width: "100%",
+          width: "90%",
           backgroundColor: "#fff",
-          margin: "32px",
+          margin: "16px",
           padding: "32px",
           boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
         }}

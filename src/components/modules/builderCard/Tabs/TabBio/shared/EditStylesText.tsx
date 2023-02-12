@@ -1,4 +1,5 @@
 import { Center, Flex, SegmentedControl, Text } from "@mantine/core";
+import { createStyles } from "@mantine/styles";
 
 const sizes = [
   {
@@ -27,13 +28,26 @@ type IProps = {
   fontSize: string;
   editableStylesName: (size: string, field: string) => void;
 };
+
+
+export const useStyles = createStyles((theme) => ({
+    fontStyle: {
+      [`@media (max-width: 700px)`]: {
+        flexDirection: 'column',
+        alignItems: 'start',
+        width: '100%',
+      },
+    }
+}));
+
 export const EditStylesText = ({
   field,
   fontSize,
   editableStylesName,
 }: IProps) => {
+  const { classes } = useStyles();
   return (
-    <Flex gap={10} justify={'center'} align={'center'}>
+    <Flex className={classes.fontStyle} gap={10} justify={'center'} align={'center'}>
         <Text fz={12}>Font size:</Text>
         <SegmentedControl
         defaultValue={fontSize}

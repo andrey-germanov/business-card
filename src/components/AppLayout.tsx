@@ -4,6 +4,7 @@ import { signOut, getAuth } from "firebase/auth";
 import { useNavigate } from "react-router";
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import { Logo } from "./shared/Logo";
+import { useStyles } from "./useStylesAppLayout";
 
 interface IWrapperApp {
   children: React.ReactNode;
@@ -12,18 +13,17 @@ interface IWrapperApp {
 export function AppLayout({ children }: IWrapperApp) {
   const auth = getAuth();
   const [user, loading, error] = useAuthState(auth);
-  const [signOut] = useSignOut(auth);
+  const { classes } = useStyles();
 
-  const signControl = () => {
+  const showInfo = () => {
     if (loading) return <>loading</>;
     if (user) {
       return (
-        <>
+        <Link to={"/logout"}>
           <Badge variant="gradient" gradient={{ from: "indigo", to: "cyan" }}>
             {user.email}
           </Badge>
-          <Button onClick={signOut}>log out</Button>
-        </>
+        </Link>
       );
     } else {
       return <Link to={"/login"}>login</Link>;
@@ -32,15 +32,10 @@ export function AppLayout({ children }: IWrapperApp) {
   return (
     <Stack style={{ height: "100%" }} spacing={0}>
       <Header
-        style={{
-          boxShadow: "rgba(0, 0, 0, 0.15) 0px 3px 15px",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          zIndex: 0,
-        }}
+        className={classes.header}
         height={70}
         p="md"
+        display={'flex'}
       >
         <Flex
           style={{ width: "100%" }}
@@ -53,16 +48,13 @@ export function AppLayout({ children }: IWrapperApp) {
               <Text weight={300}>Smart Links</Text>
             </Flex>
           </Link>
-          <Group>{signControl()}</Group>
+          <Group>{showInfo()}</Group>
         </Flex>
       </Header>
       <Flex
         justify={"center"}
         align={"center"}
-        style={{
-          padding: "20px",
-          width: "100%",
-        }}
+        className={classes.children}
       >
         {children}
       </Flex>

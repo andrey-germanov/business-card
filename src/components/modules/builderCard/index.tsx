@@ -1,9 +1,9 @@
-import { Stack, Button, Tabs } from "@mantine/core";
+import { Stack, Button, Tabs, Flex } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
 import { Navigate } from "react-router";
-import { PreviewCard } from "../../../components/modules/builderCard/PreviewCard";
+import { PreviewCard } from "./PreviewCard";
 import { AppLayout } from "../../../components/AppLayout";
 import { TabStyles } from "../../../components/modules/builderCard/Tabs/TabStyles/TabStyles";
 import { TabBio } from "../../../components/modules/builderCard/Tabs/TabBio/TabBio";
@@ -22,6 +22,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { showNotification } from "@mantine/notifications";
 import { Context } from "../../..";
 import { TabLink } from "./Tabs/TabLink/TabLinks";
+import { useStyles } from "./useStyles";
 
 export const BuilderCard = () => {
   const [fetchLoading, setFetchLoading] = useState(false);
@@ -33,6 +34,7 @@ export const BuilderCard = () => {
   const [user, loading] = useAuthState(auth);
   const { db } = useContext(Context);
 
+  const { classes } = useStyles();
   const fetchCard = async () => {
     setFetchLoading(true);
     const userRef = collection(db, "cards");
@@ -78,29 +80,16 @@ export const BuilderCard = () => {
   };
   if (!user && !loading) return <Navigate to={"/login"} replace />;
   return (
-    <Stack>
+    <Stack style={{ width: '100%' }}>
       {fetchLoading ? (
         "loading"
       ) : (
-        <div
-          style={{
-            display: "flex",
-            gap: "50px",
-          }}
+        <Flex
+          className={classes.blocks}
         >
           <PreviewCard card={card} />
           <div
-            style={{
-              width: "800px",
-              // maxWidth: '100%',
-              boxShadow: "rgba(0, 0, 0, 0.15) 0px 3px 15px",
-              borderRadius: "30px",
-              padding: "50px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "50px",
-              position: "relative",
-            }}
+            className={classes.actionsBlock}
           >
             {card.nickname && (
               <a
@@ -130,14 +119,14 @@ export const BuilderCard = () => {
               </Tabs.Panel>
             </Tabs>
             <Button
-              style={{ position: "absolute", bottom: "32px", right: "32px" }}
+              // style={{ position: "absolute", bottom: "32px", right: "32px" }}
               disabled={updateLoading}
               onClick={handleFormSubmit}
             >
               Publish
             </Button>
           </div>
-        </div>
+        </Flex>
       )}
     </Stack>
   );

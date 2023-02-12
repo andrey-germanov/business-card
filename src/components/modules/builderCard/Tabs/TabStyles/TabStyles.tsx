@@ -16,6 +16,7 @@ import {
 import { useDispatch } from "react-redux";
 import { ICardResponse } from "../../../../../types/types";
 import { backgrounds } from "./const";
+import { useStyles } from "./useStyles";
 
 interface IProps {
   card: ICardResponse;
@@ -23,6 +24,7 @@ interface IProps {
 
 export const TabStyles = ({ card }: IProps) => {
   const dispatch = useDispatch();
+  const { classes } = useStyles();
 
   const handleChangeBackgroundColor = (e: string) => {
     const data = { backgroundColor: e };
@@ -54,10 +56,11 @@ export const TabStyles = ({ card }: IProps) => {
         <Accordion.Item value="customicStyle">
           <Accordion.Control>Create customic style</Accordion.Control>
           <Accordion.Panel>
-            <Flex justify={"space-between"}>
+            <Flex className={classes.colorPickers} justify={"space-between"}>
               <Stack>
                 <Text size={12}>Background color</Text>
                 <ColorPicker
+                  className={classes.colorPicker}
                   format="hex"
                   defaultValue={card.style.backgroundColor}
                   onChange={handleChangeBackgroundColor}
@@ -66,6 +69,7 @@ export const TabStyles = ({ card }: IProps) => {
               <Stack>
                 <Text size={12}>Background button color</Text>
                 <ColorPicker
+                  className={classes.colorPicker}
                   format="rgba"
                   defaultValue={card.style.buttonColor}
                   onChange={handleChangeBackgroundButtonColor}
@@ -74,6 +78,7 @@ export const TabStyles = ({ card }: IProps) => {
               <Stack>
                 <Text size={12}>Text color</Text>
                 <ColorPicker
+                  className={classes.colorPicker}
                   format="rgba"
                   defaultValue={card.style.textColor}
                   onChange={handleChangeTextColor}
